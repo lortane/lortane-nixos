@@ -4,6 +4,7 @@
   imports = [
     ./boot.nix
     ./hardware.nix
+    ./networking.nix
     ./secrets
     ./wireguard.nix
 
@@ -32,32 +33,8 @@
     vim
   ];
 
-  # Basic server configuration
-  networking.hostName = "boris";
-
-  # Static IP configuration
-  networking.interfaces.eno1.ipv4.addresses = [
-    {
-      address = "192.168.1.135";
-      prefixLength = 24;
-    }
-  ];
-  networking.defaultGateway = "192.168.1.1";
-
   # Enable SSH
   services.openssh.enable = true;
-
-  networking.wg-server = {
-    enable = true;
-    openFirewall = true;
-    externalInterface = "eno1";
-    peers = {
-      "lortane@wes" = {
-        publicKey = "peoJzK9MQN3rNSAcRfnVtMoB6A2sByartvYShKUCGHM=";
-        allowedIP = "10.100.0.2";
-      };
-    };
-  };
 
   system.stateVersion = "25.05";
 }
