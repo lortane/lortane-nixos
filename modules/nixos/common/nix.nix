@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   nix = {
     # Disable nix channels. Use flakes instead.
@@ -23,6 +25,9 @@
 
       # Avoid copying unnecessary stuff over SSH
       builders-use-substitutes = true;
+
+      # Workaround for https://github.com/NixOS/nix/issues/9574
+      nix-path = config.nix.nixPath;
 
       download-buffer-size = 524288000; # 500 MiB
 
