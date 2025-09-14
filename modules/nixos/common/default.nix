@@ -1,6 +1,7 @@
 {
   imports = [
     ./locale.nix
+    ./packages.nix
     ./nix.nix
   ];
 
