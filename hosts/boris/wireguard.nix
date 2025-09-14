@@ -8,8 +8,8 @@
     openFirewall = true;
     externalInterface = "eno1";
     peers = {
-      "lortane@wes" = {
-        publicKey = "peoJzK9MQN3rNSAcRfnVtMoB6A2sByartvYShKUCGHM=";
+      "lortane@zack" = {
+        publicKey = "S8/i6oFwD8tuSXSGwlBtrJ2nFxyAEbYOOZTlE3b+RSA=";
         allowedIP = "10.100.0.2";
       };
     };
