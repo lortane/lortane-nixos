@@ -5,8 +5,8 @@
     # Disable nix channels. Use flakes instead.
     channel.enable = false;
 
-    # De-duplicate store paths using hardlinks 
-    optimise.automatic = true; 
+    # De-duplicate store paths using hardlinks
+    optimise.automatic = true;
 
     # Auto run garbage collection once a week
     gc = {
