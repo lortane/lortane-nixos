@@ -1,6 +1,7 @@
 {
   imports = [
     ./locale.nix
+    ./nix.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

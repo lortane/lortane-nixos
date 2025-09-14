@@ -24,24 +24,6 @@
     ];
   };
 
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      download-buffer-size = 4194304;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
-      trusted-users = [ "lortane" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;
 
