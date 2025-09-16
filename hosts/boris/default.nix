@@ -26,6 +26,7 @@
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUgSiHOxQ6LjMqNqCZuG/ERmYCyNBeX3utA25t6gNbV lortane@wes"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIALdHLA/GxlYahccP7wmD1pVnrKaj+deWqWIVBLEknNO loren@zack"
     ];
   };
 
@@ -33,7 +34,16 @@
   security.sudo.wheelNeedsPassword = false;
 
   # Enable SSH
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+      KbdInteractiveAuthentication = false;
+      MaxAuthtries = 3;
+      MaxSessions = 3;
+    };
+  };
 
   system.stateVersion = "25.05";
 }
