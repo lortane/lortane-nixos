@@ -8,6 +8,8 @@
     #    ./nixvim.nix
     #    ./secrets
 
-    #    outputs.homeModules.common
+    outputs.homeModules.common
   ];
+
+  cli-tools.enable = true;
 }

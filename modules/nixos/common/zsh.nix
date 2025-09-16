@@ -1,6 +1,9 @@
 {
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    enableLsColors = true;
+
     syntaxHighlighting = {
       enable = true;
       highlighters = [
@@ -10,6 +13,7 @@
         "pattern"
       ];
     };
+
     autosuggestions = {
       enable = true;
       strategy = [
@@ -17,6 +21,5 @@
         "history"
       ];
     };
-    enableLsColors = true;
   };
 }
