@@ -3,6 +3,7 @@
     ./locale.nix
     ./packages.nix
     ./nix.nix
+    ./zsh.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
