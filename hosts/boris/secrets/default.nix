@@ -13,5 +13,6 @@ in
       path = "/etc/wireguard/privatekey";
       mode = "600";
     };
+    cloudflare-api.file = ./cloudflare-api.age;
   };
 }

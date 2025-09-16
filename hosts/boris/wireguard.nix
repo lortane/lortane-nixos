@@ -1,4 +1,4 @@
-{ outputs, ... }:
+{ config, outputs, ... }:
 
 {
   imports = [ outputs.nixosModules.wg-server ];

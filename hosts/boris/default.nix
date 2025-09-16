@@ -8,6 +8,7 @@
 {
   imports = [
     ./boot.nix
+    ./ddns.nix
     ./hardware.nix
     ./networking.nix
     ./secrets

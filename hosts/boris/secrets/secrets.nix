@@ -7,4 +7,8 @@ in
     boris
     lortane
   ];
+  "cloudflare-api.age".publicKeys = [
+    boris
+    lortane
+  ];
 }
