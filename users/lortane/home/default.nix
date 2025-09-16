@@ -3,13 +3,11 @@
 {
   imports = [
     ./git.nix
-    #    ./home.nix
+    ./home.nix
     #    ./nix.nix
     #    ./nixvim.nix
     #    ./secrets
 
     outputs.homeModules.common
   ];
-
-  cli-tools.enable = true;
 }
