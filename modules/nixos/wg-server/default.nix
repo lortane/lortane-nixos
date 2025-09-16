@@ -64,6 +64,11 @@ in
       default = 32;
       description = "The subnet mask for peer addresses";
     };
+    privateKeyFile = mkOption {
+      type = types.str;
+      default = "";
+      description = "The server's private key";
+    };
     peers = mkOption {
       type = types.attrsOf (
         types.submodule {
@@ -120,7 +125,7 @@ in
         "${cfg.internalInterface}" = {
           address = [ "${cfg.serverAddress}/${toString cfg.subnetMask}" ];
           listenPort = cfg.port;
-          privateKeyFile = config.age.secrets."wg-server".path;
+          privateKeyFile = cfg.privateKeyFile;
           postUp = ''
             ${iptables} -A FORWARD -i ${cfg.internalInterface} -j ACCEPT
             ${iptables} -t nat -A POSTROUTING -s ${cfg.serverAddress}/${toString cfg.subnetMask} -o ${cfg.externalInterface} -j MASQUERADE
