@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix";
   };
@@ -11,6 +13,7 @@
     {
       self,
       nixpkgs,
+      home-manager,
       ...
     }@inputs:
     let
@@ -22,6 +25,20 @@
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       #overlays = import ./overlays { inherit inputs; };
       nixosModules = import ./modules/nixos;
+      homeModules = import ./modules/home;
+
+      homeConfigurations = {
+        "lortane@jack" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            ./users/lortane/home
+            ./users/lortane/home/hosts/jack
+          ];
+        };
+      };
 
       nixosConfigurations = {
         boris = nixpkgs.lib.nixosSystem {
