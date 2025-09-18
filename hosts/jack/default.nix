@@ -14,6 +14,7 @@
     ../../users/lortane
 
     outputs.nixosModules.common
+    outputs.nixosModules.awesomewm
   ];
 
   # So I can deploy remotely (review if can be done better)
