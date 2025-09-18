@@ -1,5 +1,6 @@
 {
   time.timeZone = "Europe/Madrid";
+
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_ES.UTF-8";
@@ -11,5 +12,13 @@
     LC_PAPER = "es_ES.UTF-8";
     LC_TELEPHONE = "es_ES.UTF-8";
     LC_TIME = "es_ES.UTF-8";
+  };
+
+  # Keyboard layout (TTY + GUI)
+  console.keyMap = "es";
+
+  services.xserver.xkb = {
+    layout = "es";
+    variant = ""; # Empty for standard Spanish layout
   };
 }
