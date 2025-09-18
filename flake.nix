@@ -30,6 +30,12 @@
           };
           modules = [ ./hosts/boris ];
         };
+        jack = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/jack ];
+        };
       };
     };
 }

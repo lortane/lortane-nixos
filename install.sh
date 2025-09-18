@@ -19,7 +19,9 @@ confirm() {
 }
 
 check_root() {
-    [[ "$EUID" -eq 0 ]] && die "Don't run as root. nixos-rebuild will ask for sudo when needed."
+    if [[ "$EUID" -eq 0 ]]; then
+      die "Don't run as root. nixos-rebuild will ask for sudo when needed."
+    fi
 }
 
 get_host() {
