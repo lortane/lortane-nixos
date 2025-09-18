@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options = {
-    cli-tools.enable = lib.mkEnableOption "My CLI environment";
+    cli-tools.enable = lib.mkEnableOption "My CLI environment" // {
+      default = true;
+    };
 
     cli-tools.tools = {
       zoxide = lib.mkEnableOption "zoxide directory jumping" // {
@@ -17,13 +24,15 @@
     };
   };
 
+  imports = [ ./zsh.nix ];
+
   config = lib.mkIf config.cli-tools.enable {
     programs.fzf.enable = config.cli-tools.tools.fzf;
-    programs.zoxide.enable = config.cli-tools.tools.zoxide;
+    programs.zoxide = {
+      enable = config.cli-tools.tools.zoxide;
+      enableZshIntegration = config.cli-tools.tools.zoxide;
+    };
 
     home.packages = lib.mkIf config.cli-tools.tools.eza [ pkgs.eza ];
-
-    # Import the zsh configuration that depends on these tools
-    imports = [ ./zsh.nix ];
   };
 }

@@ -1,5 +1,5 @@
 { outputs, ... }:
 
 {
-  import = [ outputs.homeModules.awesomewm ];
+  imports = [ outputs.homeModules.awesomewm ];
 }
