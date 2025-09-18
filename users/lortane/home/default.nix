@@ -10,4 +10,6 @@
 
     outputs.homeModules.common
   ];
+
+  config.cli-tools.enable = true;
 }
