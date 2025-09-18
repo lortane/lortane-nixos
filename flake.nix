@@ -54,5 +54,23 @@
           modules = [ ./hosts/jack ];
         };
       };
+
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          flakePkgs = self.packages.${system};
+        in
+        {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt-rfc-style.enable = true;
+            };
+          };
+          build-packages = pkgs.linkFarm "flake-packages-${system}" flakePkgs;
+          # deploy-checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+        }
+      );
     };
 }

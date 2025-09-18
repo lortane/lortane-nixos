@@ -64,6 +64,26 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758207369,
+        "narHash": "sha256-BG7GlXo5moXtrFSCqnkIb1Q00szOZXTj5Dx7NmWgves=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "b5698ed57db7ee7da5e93df2e6bbada91c88f3ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1754028485,
@@ -99,6 +119,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_2"
       }
     },
