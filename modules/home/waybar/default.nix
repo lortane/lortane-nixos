@@ -48,15 +48,7 @@ let
     };
   };
 
-  "hyprland/language" = {
-    format = mkDefault "{}";
-    format-en = mkDefault "us";
-    format-de = mkDefault "de";
-    # TODO: switch language on click
-  };
-
   # Add your custom modules here
-  "custom/newsboat" = import ./modules/newsboat.nix { inherit lib pkgs; };
   "pulseaudio#input" = import ./modules/pulseaudio/input.nix { inherit lib pkgs; };
   "pulseaudio#output" = import ./modules/pulseaudio/output.nix { inherit lib pkgs; };
   battery = import ./modules/battery.nix { inherit lib; };
@@ -65,15 +57,10 @@ let
   disk = import ./modules/disk.nix { inherit lib; };
   memory = import ./modules/memory.nix { inherit lib; };
   network = import ./modules/network.nix { inherit lib; };
-  wireplumber = import ./modules/wireplumber.nix { inherit lib; };
 
   inherit (lib) mkDefault mkIf;
 in
 {
-  imports = [
-    ./modules/timer # TODO: Do not use imports. Move to let-in-block.
-  ];
-
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ font-awesome ];
 
@@ -85,7 +72,6 @@ in
           modules-left = mkDefault [
             "hyprland/workspaces"
             "keyboard-state"
-            "hyprland/language"
           ];
           modules-center = mkDefault [ "clock" ];
           modules-right = mkDefault [
@@ -99,8 +85,6 @@ in
           ];
 
           inherit
-            "custom/newsboat"
-            "hyprland/language"
             "hyprland/workspaces"
             "pulseaudio#input"
             "pulseaudio#output"
@@ -112,7 +96,6 @@ in
             keyboard-state
             memory
             network
-            wireplumber
             ;
         };
         otherBar = {

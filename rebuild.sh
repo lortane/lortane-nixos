@@ -1,7 +1,7 @@
 # NixOS and standalone Home Manager rebuild script
 
 # Defaults
-FLAKE_PATH="$HOME/.config/nixos" # Default flake path
+FLAKE_PATH="$HOME/.config/lortanix" # Default flake path
 HOME_USER="$(whoami)"            # Default username. Used to identify the Home Manager configuration
 NIXOS_HOST="$(hostname)"         # Default hostname. Used to identify the NixOS and Home Manager configuration
 BUILD_HOST=""                    # Default build host. Empty means localhost

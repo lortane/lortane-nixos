@@ -21,7 +21,6 @@ in
 
     ./applications
     ./binds
-    # ./chromium.nix # FIXME: Chromium crashes system on launch
     ./cursor.nix
     ./hyprlock.nix
     ./xdg

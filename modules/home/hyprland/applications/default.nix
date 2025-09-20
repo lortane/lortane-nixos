@@ -58,24 +58,18 @@ in
   imports = [
     ./bemenu
     ./dmenu-bluetooth
-    ./element-desktop
     ./feh
-    ./kitty
     ./lf
     ./libreoffice
     ./librewolf
     ./mpv
     ./ncmpcpp
     ./networkmanager_dmenu
-    ./newsboat
     ./powermenu-bemenu
     ./presentation-mode-bemenu
-    ./qbittorrent
     ./screenshot
-    ./thunderbird
+    ./wezterm
     ./yazi
-    ./zathura
-    # add your application directories here
   ];
 
   options.wayland.windowManager.hyprland.applications = with defaultApps; {
@@ -179,11 +173,9 @@ in
     };
 
     terminal = mkAppAttrs {
-      default = "kitty";
+      default = "wezterm";
       bind = [ "$mod, Return, exec, ${terminal}" ];
     };
-
-    torrent-client = mkAppAttrs { default = "qbittorrent"; };
 
     videoplayer = mkAppAttrs { default = "mpv"; };
   };
