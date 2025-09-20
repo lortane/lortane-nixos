@@ -7,6 +7,7 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+  programs.dconf.enable = true;
 
   environment.variables = {
     EDITOR = "vim";

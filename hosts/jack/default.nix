@@ -15,6 +15,8 @@
     
     outputs.nixosModules.audio
     outputs.nixosModules.common
+    outputs.nixosModules.docker
+    outputs.nixosModules.hyprland
   ];
 
   # So I can deploy remotely (review if can be done better)

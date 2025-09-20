@@ -4,9 +4,7 @@
   imports = [
     ./git.nix
     ./home.nix
-    #    ./nix.nix
-    #    ./nixvim.nix
-    #    ./secrets
+    #./nixvim.nix
 
     outputs.homeModules.common
   ];

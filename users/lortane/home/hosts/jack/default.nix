@@ -1,5 +1,5 @@
 { outputs, ... }:
 
 {
-  imports = [ outputs.homeModules.awesomewm ];
+  imports = [ ../../hyprland ];
 }
