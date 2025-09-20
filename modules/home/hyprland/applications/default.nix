@@ -59,7 +59,6 @@ in
     ./bemenu
     ./dmenu-bluetooth
     ./feh
-    ./lf
     ./libreoffice
     ./librewolf
     ./mpv
