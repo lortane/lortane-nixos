@@ -7,5 +7,6 @@
     #./nixvim.nix
 
     outputs.homeModules.common
+    outputs.homeModules.starship
   ];
 }

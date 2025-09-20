@@ -12,7 +12,7 @@
     ./networking.nix
 
     ../../users/lortane
-    
+
     outputs.nixosModules.audio
     outputs.nixosModules.common
     outputs.nixosModules.docker

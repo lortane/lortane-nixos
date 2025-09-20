@@ -77,21 +77,21 @@ in
           package = pkgs.nerd-fonts.jetbrains-mono;
         };
 
-	sansSerif = {
-	  name = "Noto Sans Nerd Font";
-	  package = pkgs.nerd-fonts.noto;
-	};
+        sansSerif = {
+          name = "Noto Sans Nerd Font";
+          package = pkgs.nerd-fonts.noto;
+        };
 
-	emoji = {
-	  name = "Noto Color Emoji";
-	  package = pkgs.noto-fonts-emoji;
-	};
+        emoji = {
+          name = "Noto Color Emoji";
+          package = pkgs.noto-fonts-emoji;
+        };
 
-	sizes = {
-	  applications = 11;
-	  terminal = 11;
-	  desktop = 11;
-	};
+        sizes = {
+          applications = 11;
+          terminal = 11;
+          desktop = 11;
+        };
       };
       polarity = mkDefault "dark";
 

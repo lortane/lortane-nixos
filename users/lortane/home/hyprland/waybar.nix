@@ -5,7 +5,6 @@
         "custom/timer"
         "custom/newsboat"
         "network"
-        "bluetooth"
         "cpu"
         "memory"
         "disk"

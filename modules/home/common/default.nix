@@ -8,7 +8,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.home-manager.enable = true;
-  
+
   home.stateVersion = lib.mkDefault "25.05";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 

@@ -63,20 +63,20 @@
       # local.transcribe
       # local.yt2rss
     ];
-    # reverse engineering
-    # ++ [
-    #   checksec
-    #   ghidra-bin
-    #   ida-free
-    # ]
-    # android
-    # ++ [
-    #   adbfs-rootless
-    #   android-studio
-    #   android-studio-tools
-    #   android-tools
-    #   scrcpy
-    # ];
+  # reverse engineering
+  # ++ [
+  #   checksec
+  #   ghidra-bin
+  #   ida-free
+  # ]
+  # android
+  # ++ [
+  #   adbfs-rootless
+  #   android-studio
+  #   android-studio-tools
+  #   android-tools
+  #   scrcpy
+  # ];
 
   # nixpkgs.config = {
   #   android_sdk.accept_license = true; # for android-studio

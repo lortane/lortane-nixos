@@ -15,7 +15,6 @@ in
     audio.enable = mkDefault true;
   };
 
-
   environment.systemPackages = with pkgs; [
     pulseaudioFull
   ];

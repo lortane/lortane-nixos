@@ -31,10 +31,17 @@ let
   "hyprland/workspaces" = {
     active-only = mkDefault false;
     all-outputs = mkDefault false;
+    disable-scroll = mkDefault true;
     format = mkDefault "{name}";
     on-click = mkDefault "activate";
     on-scroll-up = mkDefault "hyprctl dispatch workspace e-1";
     on-scroll-down = mkDefault "hyprctl dispatch workspace e+1";
+    persistent-workspaces = {
+      "1" = [ ];
+      "2" = [ ];
+      "3" = [ ];
+      "4" = [ ];
+    };
   };
 
   keyboard-state = {
@@ -51,8 +58,6 @@ let
   # Add your custom modules here
   "pulseaudio#input" = import ./modules/pulseaudio/input.nix { inherit lib pkgs; };
   "pulseaudio#output" = import ./modules/pulseaudio/output.nix { inherit lib pkgs; };
-  battery = import ./modules/battery.nix { inherit lib; };
-  bluetooth = import ./modules/bluetooth.nix { inherit lib; };
   cpu = import ./modules/cpu.nix { inherit lib; };
   disk = import ./modules/disk.nix { inherit lib; };
   memory = import ./modules/memory.nix { inherit lib; };
@@ -88,8 +93,6 @@ in
             "hyprland/workspaces"
             "pulseaudio#input"
             "pulseaudio#output"
-            battery
-            bluetooth
             clock
             cpu
             disk

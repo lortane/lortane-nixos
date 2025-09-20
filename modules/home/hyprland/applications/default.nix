@@ -56,26 +56,20 @@ let
 in
 {
   imports = [
-    ./bemenu
-    ./dmenu-bluetooth
     ./feh
     ./libreoffice
     ./librewolf
     ./mpv
-    ./ncmpcpp
-    ./networkmanager_dmenu
-    ./powermenu-bemenu
-    ./presentation-mode-bemenu
     ./screenshot
     ./wezterm
     ./yazi
   ];
 
   options.wayland.windowManager.hyprland.applications = with defaultApps; {
-    applauncher = mkAppAttrs {
-      default = "bemenu";
-      bind = [ "$mod, d, exec, ${applauncher}-run" ];
-    };
+    # applauncher = mkAppAttrs {
+    #   default = "bemenu";
+    #   bind = [ "$mod, d, exec, ${applauncher}-run" ];
+    # };
 
     audiomixer = mkAppAttrs {
       default = "pulsemixer";
@@ -84,11 +78,6 @@ in
         "float, title:^${audiomixer}$"
         "size 50% 50%, title:^${audiomixer}$"
       ];
-    };
-
-    bluetoothsettings = mkAppAttrs {
-      default = "dmenu-bluetooth";
-      bind = [ "$mod SHIFT, b, exec, ${bluetoothsettings}" ];
     };
 
     browser = mkAppAttrs {
@@ -103,11 +92,6 @@ in
       ];
     };
 
-    emailclient = mkAppAttrs {
-      default = "thunderbird";
-      bind = [ "$mod, m, exec, ${emailclient}" ];
-    };
-
     equalizer = mkAppAttrs {
       default = "easyeffects";
       bind = [ "$mod CTRL, e, exec, ${getExe pkgs.easyeffects}" ];
@@ -118,19 +102,9 @@ in
       bind = [ "$mod, e, exec, ${terminal} -T ${filemanager} -e ${filemanager}" ];
     };
 
-    matrix-client = mkAppAttrs {
-      default = "element-desktop";
-      bind = [ "$mod SHIFT, e, exec, ${matrix-client}" ];
-    };
-
     musicplayer = mkAppAttrs {
       default = "ncmpcpp";
       bind = [ "$mod SHIFT, m, exec, ${terminal} -T ${musicplayer} -e ${musicplayer}" ];
-    };
-
-    networksettings = mkAppAttrs {
-      default = "networkmanager_dmenu";
-      bind = [ "$mod SHIFT, n, exec, ${networksettings}" ];
     };
 
     office = mkAppAttrs {
@@ -138,29 +112,7 @@ in
       bind = [ "$mod SHIFT, o, exec, ${office}" ];
     };
 
-    password-manager = mkAppAttrs {
-      default = "passwordmanager";
-      bind = [ "$mod, p, exec, passmenu-bemenu" ];
-    };
-
     imageviewer = mkAppAttrs { default = "feh"; };
-
-    pdfviewer = mkAppAttrs { default = "zathura"; };
-
-    powermenu = mkAppAttrs {
-      default = "powermenu-bemenu";
-      bind = [ "$mod SHIFT, q, exec, ${powermenu}" ];
-    };
-
-    presentation-mode = mkAppAttrs {
-      default = "presentation-mode-bemenu";
-      bind = [ "$mod SHIFT, p, exec, ${presentation-mode}" ];
-    };
-
-    rssreader = mkAppAttrs {
-      default = "newsboat";
-      bind = [ "$mod, n, exec, ${terminal} -T ${rssreader} -e ${rssreader}" ];
-    };
 
     screenshotter = mkAppAttrs {
       default = "screenshot";
