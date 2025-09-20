@@ -24,7 +24,7 @@
 
   wayland.windowManager.hyprland = {
     extraConfig = ''
-      workspace = special:yazi, on-created-empty:kitty -T yazi -e yazi
+      workspace = special:yazi, on-created-empty:wezterm -T yazi -e yazi
       bind = $mod, x, togglespecialworkspace, yazi
       windowrule = float, title:^yazi$
       windowrule = size 50% 50%, title:^yazi$

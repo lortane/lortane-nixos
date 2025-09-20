@@ -31,7 +31,7 @@ in
     new_on_top = mkDefault true;
   };
 
-  input.kb_layout = mkDefault "de";
+  input.kb_layout = mkDefault "es";
 
   xwayland = {
     force_zero_scaling = mkDefault true;

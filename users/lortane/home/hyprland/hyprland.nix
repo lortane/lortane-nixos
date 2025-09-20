@@ -13,7 +13,7 @@
         in
         [
           "$mod,       g, exec, gimp"
-          "$mod,       s, exec, kitty -T spotify -e spotify_player"
+          "$mod,       s, exec, wezterm -T spotify -e spotify_player"
           "$mod,       v, exec, virt-manager"
           "$mod,       z, exec, ${flatpak} run us.zoom.Zoom"
           "$mod CTRL,  o, exec, obs"

@@ -19,7 +19,7 @@ in
       ];
     };
     extraConfig = ''
-      workspace = special:fzf-open, on-created-empty:kitty --class=floating -e ${fzf-open}/bin/fzf-open
+      workspace = special:fzf-open, on-created-empty:wezterm --class=floating -e ${fzf-open}/bin/fzf-open
     '';
   };
 
