@@ -17,12 +17,11 @@ let
 in
 {
   imports = [
-    ../waybar
-
     ./applications
     ./binds
     ./cursor.nix
     ./hyprlock.nix
+    ./waybar
     ./xdg
   ];
 

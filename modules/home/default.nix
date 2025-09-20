@@ -9,5 +9,4 @@
   nixvim = import ./nixvim;
   nextcloud-sync = import ./nextcloud-sync;
   stylix = import ./stylix;
-  waybar = import ./waybar;
 }
