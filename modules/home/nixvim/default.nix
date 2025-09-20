@@ -12,8 +12,6 @@ in
   imports = [
     inputs.nixvim.homeModules.nixvim
     # ./plugins dockerls gives issues
-
-    ./spellfiles.nix
   ];
 
   config = {
@@ -65,8 +63,8 @@ in
         spell = mkDefault true;
         spelllang = mkDefault [
           "en_us"
-          "de_20"
-        ];
+          "es_es"
+        ]
 
       };
 
