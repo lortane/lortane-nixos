@@ -5,6 +5,5 @@ let
 in
 {
   programs.hyprland.enable = mkDefault true;
-  security.pam.services.hyprlock = { };
   services.udisks2.enable = mkDefault true;
 }

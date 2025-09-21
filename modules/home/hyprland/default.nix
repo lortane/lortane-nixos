@@ -42,7 +42,7 @@ in
     wayland.windowManager.hyprland = {
       systemd = {
         enable = mkDefault true;
-        enableXdgAutostart = mkDefault false;
+        enableXdgAutostart = mkDefault true;
         variables = mkDefault [ "--all" ];
         # extraCommands = [ # fix for dunst
         #   "${pkgs.dbus}/bin/dbus-update-activation-environment WAYLAND_DISPLAY"

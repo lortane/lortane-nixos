@@ -1,4 +1,4 @@
-{ outputs, ... }:
+{ outputs, pkgs, ... }:
 
 let
   keys = import ./keys.nix;
@@ -12,6 +12,8 @@ in
     lortane = {
       extraGroups = [ "wheel" ];
       sshKeyFiles = keys.keyPaths;
+      autoLogin = true;
+      enableHyprlock = true;
     };
   };
 }

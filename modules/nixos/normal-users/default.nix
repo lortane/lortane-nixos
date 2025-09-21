@@ -12,6 +12,7 @@ let
     attrNames
     genAttrs
     mkOption
+    mkIf
     types
     ;
 in
@@ -42,6 +43,16 @@ in
             description = "SSH key files for the user";
             example = [ "/path/to/id_rsa.pub" ];
           };
+          autoLogin = mkOption {
+            type = types.bool;
+            default = false;
+            description = "Whether to automatically log in this user to the graphical session";
+          };
+          enableHyprlock = mkOption {
+            type = types.bool;
+            default = false;
+            description = "Whether to enable system-level hyprlock integration (PAM configuration)";
+          };
         };
       }
     );
@@ -49,21 +60,54 @@ in
     description = "Users to create. The usernames are the attribute names.";
   };
 
-  config = {
-    # Create user groups
-    users.groups = genAttrs (attrNames cfg) (userName: {
-      name = userName;
-    });
+  config =
+    let
+      autoLoginUser = lib.findFirst (user: cfg.${user}.autoLogin) null (attrNames cfg);
+      autoLoginUserCount = lib.count (user: cfg.${user}.autoLogin) (attrNames cfg);
+      hyprlockUsers = lib.filter (user: cfg.${user}.enableHyprlock) (attrNames cfg);
+      hasHyprlockUsers = hyprlockUsers != [ ];
+    in
+    {
 
-    # Create users
-    users.users = genAttrs (attrNames cfg) (userName: {
-      name = userName;
-      inherit (cfg.${userName}) extraGroups shell initialPassword;
+      # Create user groups
+      users.groups = genAttrs (attrNames cfg) (userName: {
+        name = userName;
+      });
 
-      isNormalUser = true;
-      group = "${userName}";
-      home = "/home/${userName}";
-      openssh.authorizedKeys.keyFiles = cfg.${userName}.sshKeyFiles;
-    });
-  };
+      # Create users
+      users.users = genAttrs (attrNames cfg) (userName: {
+        name = userName;
+        inherit (cfg.${userName}) extraGroups shell initialPassword;
+
+        isNormalUser = true;
+        group = "${userName}";
+        home = "/home/${userName}";
+        openssh.authorizedKeys.keyFiles = cfg.${userName}.sshKeyFiles;
+      });
+
+      # Configure auto-login
+      services.xserver.enable = true;
+      services.displayManager = {
+        autoLogin =
+          if autoLoginUser != null then
+            {
+              enable = true;
+              user = autoLoginUser;
+            }
+          else
+            {
+              enable = false;
+            };
+      };
+
+      security.pam.services.hyprlock = mkIf hasHyprlockUsers { };
+
+      assertions = [
+        {
+          assertion = autoLoginUserCount <= 1;
+          message = "Only one user can be set for autoLogin";
+        }
+      ];
+    };
+
 }

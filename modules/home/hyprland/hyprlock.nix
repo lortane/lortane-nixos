@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  username,
+  ...
+}:
 
 let
   cfg = config.wayland.windowManager.hyprland;
