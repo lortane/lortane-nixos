@@ -10,7 +10,10 @@ in
 
   normalUsers = {
     lortane = {
-      extraGroups = [ "wheel" ];
+      extraGroups = [
+        "openrazer"
+        "wheel"
+      ];
       sshKeyFiles = keys.keyPaths;
       autoLogin = true;
       enableHyprlock = true;

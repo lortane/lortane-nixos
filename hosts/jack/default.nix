@@ -10,6 +10,7 @@
     ./boot.nix
     ./hardware.nix
     ./networking.nix
+    ./peripherals.nix
 
     ../../users/lortane
 
