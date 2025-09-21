@@ -10,7 +10,6 @@ in
   "$mod" = cfg.modifier;
 
   exec-once = [
-    "waybar &"
     "hyprlock"
   ];
 

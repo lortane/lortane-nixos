@@ -11,7 +11,7 @@ let
   clock = {
     format = mkDefault "{:%a %d %b  %H:%M}";
     tooltip-format = mkDefault "<tt><small>{calendar}</small></tt>";
-    timezone = mkDefault "Europe/Berlin";
+    timezone = mkDefault "Europe/Madrid";
     locale = mkDefault "en_US.UTF-8";
     calendar = {
       mode = mkDefault "year";
@@ -71,6 +71,7 @@ in
 
     programs.waybar = {
       systemd.enable = mkDefault true;
+      systemd.target = "hyprland-session.target";
       settings = {
         mainBar = {
           output = mkDefault "";
