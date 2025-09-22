@@ -6,4 +6,5 @@ in
 {
   programs.hyprland.enable = mkDefault true;
   services.udisks2.enable = mkDefault true;
+  security.pam.services.hyprlock = { };
 }

@@ -48,11 +48,6 @@ in
             default = false;
             description = "Whether to automatically log in this user to the graphical session";
           };
-          enableHyprlock = mkOption {
-            type = types.bool;
-            default = false;
-            description = "Whether to enable system-level hyprlock integration (PAM configuration)";
-          };
         };
       }
     );
@@ -99,8 +94,6 @@ in
               enable = false;
             };
       };
-
-      security.pam.services.hyprlock = mkIf hasHyprlockUsers { };
 
       assertions = [
         {
