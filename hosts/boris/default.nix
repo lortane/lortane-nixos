@@ -33,6 +33,4 @@
       MaxSessions = 3;
     };
   };
-
-  system.stateVersion = "25.05";
 }

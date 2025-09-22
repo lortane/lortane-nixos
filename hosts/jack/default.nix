@@ -13,10 +13,16 @@
     ./peripherals.nix
 
     ../../users/lortane
+    {
+      outputs = outputs;
+      pkgs = pkgs;
+      hostModules = [ ../../users/lortane/home/hosts/jack ];
+    }
 
     outputs.nixosModules.audio
     outputs.nixosModules.common
     outputs.nixosModules.hyprland
+
   ];
 
   # So I can deploy remotely (review if can be done better)
@@ -33,6 +39,4 @@
       MaxSessions = 3;
     };
   };
-
-  system.stateVersion = "25.05";
 }
