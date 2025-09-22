@@ -8,15 +8,9 @@
 let
   cfg = config.wayland.windowManager.hyprland;
 
-  hyprland = import ./hyprland.nix;
-  mediakeys = import ./mediakeys.nix { inherit pkgs; };
-  windows = import ./windows.nix;
   workspaces = import ./workspaces.nix;
 
   binds = builtins.concatLists [
-    hyprland
-    mediakeys
-    windows
     workspaces
   ];
 
