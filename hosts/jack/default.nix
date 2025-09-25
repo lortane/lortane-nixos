@@ -11,19 +11,13 @@
     ./hardware.nix
     ./networking.nix
     ./peripherals.nix
-
-    ../../users/lortane
-    {
-      outputs = outputs;
-      pkgs = pkgs;
-      hostModules = [ ../../users/lortane/home/hosts/jack ];
-    }
-
+    
     outputs.nixosModules.audio
     outputs.nixosModules.common
     outputs.nixosModules.hyprland
-
-  ];
+  ] ++ (import ../../users/lortane {
+    hostModules = [ ../../users/lortane/home/hosts/jack ];
+  });
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

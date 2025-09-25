@@ -1,36 +1,30 @@
-{
-  inputs,
-  outputs,
-  pkgs,
-  hostModules ? [ ],
-  ...
-}:
+# users/lortane/default.nix
+{ inputs, outputs, pkgs, ... }:
+
+{ hostModules ? [] }:
 
 let
-  keys = import ./keys.nix;
-in
-{
-  imports = [
-    outputs.nixosModules.normal-users
+  userSpecificModule = {
+    normalUsers = {
+      lortane = {
+        extraGroups = [
+          "openrazer"
+          "wheel"
+        ];
+        sshKeyFiles = (import ./keys.nix).keyPaths;
+        autoLogin = true;
+        enableHyprlock = true;
+      };
+    };
 
-    inputs.home-manager.nixosModules.home-manager
-  ];
-
-  normalUsers = {
-    lortane = {
-      extraGroups = [
-        "openrazer"
-        "wheel"
-      ];
-      sshKeyFiles = keys.keyPaths;
-      autoLogin = true;
-      enableHyprlock = true;
+    home-manager.users."lortane" = {
+      inherit pkgs;
+      modules = [ ./home ] ++ hostModules;
     };
   };
-
-  home-manager.users."lortane" = {
-    inherit pkgs;
-
-    modules = [ ./home ] ++ hostModules;
-  };
-}
+in
+[
+  userSpecificModule
+  outputs.nixosModules.normal-users
+  inputs.home-manager.nixosModules.home-manager
+]

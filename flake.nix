@@ -37,18 +37,7 @@
       nixosModules = import ./modules/nixos;
       homeModules = import ./modules/home;
 
-      homeConfigurations = {
-        "lortane@jack" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [
-            ./users/lortane/home
-            ./users/lortane/home/hosts/jack
-          ];
-        };
-      };
+      homeConfigurations = {};
 
       nixosConfigurations = {
         boris = nixpkgs.lib.nixosSystem {
