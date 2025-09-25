@@ -15,6 +15,7 @@
 
     outputs.nixosModules.audio
     outputs.nixosModules.common
+    outputs.nixosModules.hardware
     outputs.nixosModules.hyprland
   ];
 
