@@ -37,7 +37,7 @@
       nixosModules = import ./modules/nixos;
       homeModules = import ./modules/home;
 
-      homeConfigurations = {};
+      homeConfigurations = { };
 
       nixosConfigurations = {
         boris = nixpkgs.lib.nixosSystem {
@@ -51,6 +51,12 @@
             inherit inputs outputs;
           };
           modules = [ ./hosts/jack ];
+        };
+        wes = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/wes ];
         };
       };
 

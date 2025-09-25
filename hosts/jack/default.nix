@@ -11,11 +11,12 @@
     ./hardware.nix
     ./networking.nix
     ./peripherals.nix
-    
+
     outputs.nixosModules.audio
     outputs.nixosModules.common
     outputs.nixosModules.hyprland
-  ] ++ (import ../../users/lortane {
+  ]
+  ++ (import ../../users/lortane {
     hostModules = [ ../../users/lortane/home/hosts/jack ];
   });
 

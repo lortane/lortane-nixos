@@ -1,7 +1,11 @@
 # users/lortane/default.nix
-{ inputs, outputs, pkgs, ... }:
-
-{ hostModules ? [] }:
+{
+  inputs,
+  outputs,
+  pkgs,
+  hostModules ? [ ],
+  ...
+}:
 
 let
   userSpecificModule = {

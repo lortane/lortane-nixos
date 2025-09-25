@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Define an option to enable this hardware module
@@ -9,12 +14,13 @@
     # Install the openrazer packages
     environment.systemPackages = with pkgs; [
       openrazer-daemon
+      polychromatic
     ];
 
     # Enable the openrazer service
-    services.openrazer.enable = true;
+    hardware.openrazer.enable = true;
 
     # Add the "openrazer" group to the system
-    users.groups.openrazer = {};
+    users.groups.openrazer = { };
   };
 }
