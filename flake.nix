@@ -27,11 +27,16 @@
       ...
     }@inputs:
     let
-      nixosModules = import ./modules/nixos;
-      homeModules = import ./modules/home;
-
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      # Helper function to create NixOS configurations
+      mkNixOSConfig = hostPath: nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          hostPath
+        ];
+      };
     in
     {
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
@@ -40,30 +45,10 @@
       homeConfigurations = { };
 
       nixosConfigurations = {
-        boris = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs nixosModules homeModules;
-          };
-          modules = [ ./hosts/boris ];
-        };
-        jack = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs nixosModules homeModules;
-          };
-          modules = [ ./hosts/jack ];
-        };
-        wes = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs nixosModules homeModules;
-          };
-          modules = [ ./hosts/wes ];
-        };
-        wsl = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs nixosModules homeModules;
-          };
-          modules = [ ./hosts/wsl ];
-        };
+        boris = mkNixOSConfig ./hosts/boris;
+        jack = mkNixOSConfig ./hosts/jack;
+        wes = mkNixOSConfig ./hosts/wes;
+        wsl = mkNixOSConfig ./hosts/wsl;
       };
 
       checks = forAllSystems (

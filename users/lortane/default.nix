@@ -1,7 +1,6 @@
 {
   inputs,
   nixosModules,
-  pkgs,
   hostHomeModules ? [ ],
   ...
 }:
@@ -15,14 +14,11 @@ let
           "wheel"
         ];
         sshKeyFiles = (import ./keys.nix).keyPaths;
-        autoLogin = true;
-        enableHyprlock = true;
       };
     };
 
     home-manager.users."lortane" = {
-      inherit pkgs;
-      modules = [ ./home ] ++ hostHomeModules;
+      imports = [ ./home ] ++ hostHomeModules;
     };
   };
 in
