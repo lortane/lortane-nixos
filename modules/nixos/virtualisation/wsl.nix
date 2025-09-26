@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -58,11 +63,14 @@ in
     programs.nix-ld.enable = true;
 
     # System packages useful for WSL
-    environment.systemPackages = with pkgs; [
-      wget
-      curl
-      file
-      wslu  # Windows Subsystem for Linux Utilities
-    ] ++ cfg.extraPackages;
+    environment.systemPackages =
+      with pkgs;
+      [
+        wget
+        curl
+        file
+        wslu # Windows Subsystem for Linux Utilities
+      ]
+      ++ cfg.extraPackages;
   };
 }

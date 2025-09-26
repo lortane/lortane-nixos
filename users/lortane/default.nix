@@ -10,7 +10,6 @@ let
     normalUsers = {
       lortane = {
         extraGroups = [
-          "openrazer"
           "wheel"
         ];
         sshKeyFiles = (import ./keys.nix).keyPaths;

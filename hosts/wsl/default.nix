@@ -23,6 +23,6 @@ in
 
   virtualisation.wsl = {
     enable = true;
-    defaultUser = "lortane"; 
+    defaultUser = "lortane";
   };
 }

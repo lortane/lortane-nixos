@@ -31,12 +31,14 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
       # Helper function to create NixOS configurations
-      mkNixOSConfig = hostPath: nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          hostPath
-        ];
-      };
+      mkNixOSConfig =
+        hostPath:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            hostPath
+          ];
+        };
     in
     {
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
