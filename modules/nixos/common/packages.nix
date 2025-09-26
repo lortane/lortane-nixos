@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     cryptsetup
     dig
+    fd
     fzf
     git
     htop

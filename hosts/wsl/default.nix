@@ -12,8 +12,6 @@ in
   nixpkgs.hostPlatform = builtins.currentSystem;
 
   imports = [
-    <nixos-wsl/modules>
-
     ./networking.nix
 
     nixosModules.common

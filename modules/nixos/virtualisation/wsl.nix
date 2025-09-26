@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -11,6 +12,11 @@ let
   cfg = config.virtualisation.wsl;
 in
 {
+
+  imports = [
+    inputs.nixos-wsl.nixosModules.wsl
+  ];
+
   options.virtualisation.wsl = {
     enable = mkEnableOption "Windows Subsystem for Linux (WSL)";
 
@@ -48,9 +54,6 @@ in
     };
   };
 
-  # Import the nixos-wsl module if available
-  imports = optional (builtins.pathExists <nixos-wsl/modules>) <nixos-wsl/modules>;
-
   config = mkIf cfg.enable {
     # WSL-specific configurations
     wsl = mkIf (builtins.pathExists <nixos-wsl/modules>) {
@@ -66,7 +69,6 @@ in
     environment.systemPackages =
       with pkgs;
       [
-        wget
         curl
         file
         wslu # Windows Subsystem for Linux Utilities
