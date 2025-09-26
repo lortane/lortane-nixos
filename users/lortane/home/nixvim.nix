@@ -1,8 +1,8 @@
-{ outputs, config, ... }:
+{ homeModules, ... }:
 
 {
   imports = [
-    outputs.homeModules.nixvim
+    homeModules.nixvim
   ];
 
   programs.nixvim.enable = false;

@@ -27,36 +27,42 @@
       ...
     }@inputs:
     let
-      inherit (self) outputs;
+      nixosModules = import ./modules/nixos;
+      homeModules = import ./modules/home;
+
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       #overlays = import ./overlays { inherit inputs; };
-      nixosModules = import ./modules/nixos;
-      homeModules = import ./modules/home;
 
       homeConfigurations = { };
 
       nixosConfigurations = {
         boris = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs;
+            inherit inputs nixosModules homeModules;
           };
           modules = [ ./hosts/boris ];
         };
         jack = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs;
+            inherit inputs nixosModules homeModules;
           };
           modules = [ ./hosts/jack ];
         };
         wes = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs;
+            inherit inputs nixosModules homeModules;
           };
           modules = [ ./hosts/wes ];
+        };
+        wsl = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs nixosModules homeModules;
+          };
+          modules = [ ./hosts/wsl ];
         };
       };
 

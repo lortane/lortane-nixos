@@ -1,9 +1,8 @@
-# users/lortane/default.nix
 {
   inputs,
-  outputs,
+  nixosModules,
   pkgs,
-  hostModules ? [ ],
+  hostHomeModules ? [ ],
   ...
 }:
 
@@ -23,12 +22,12 @@ let
 
     home-manager.users."lortane" = {
       inherit pkgs;
-      modules = [ ./home ] ++ hostModules;
+      modules = [ ./home ] ++ hostHomeModules;
     };
   };
 in
 [
   userSpecificModule
-  outputs.nixosModules.normal-users
+  nixosModules.normal-users
   inputs.home-manager.nixosModules.home-manager
 ]

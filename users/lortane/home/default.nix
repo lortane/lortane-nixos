@@ -1,4 +1,4 @@
-{ outputs, ... }:
+{ homeModules, ... }:
 
 {
   imports = [
@@ -6,9 +6,9 @@
     ./home.nix
     ./nixvim.nix
 
-    outputs.homeModules.common
-    outputs.homeModules.starship
-    outputs.homeModules.keepassxc
+    homeModules.common
+    homeModules.starship
+    homeModules.keepassxc
   ];
 
   programs.keepassxc = {
