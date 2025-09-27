@@ -1,24 +1,30 @@
 {
-  outputs,
+  inputs,
   config,
   pkgs,
   ...
 }:
 
+let
+  nixosModules = import ../../modules/nixos;
+in
 {
   imports = [
     ./boot.nix
     ./hardware.nix
     ./networking.nix
-    ./peripherals.nix
 
-    outputs.nixosModules.audio
-    outputs.nixosModules.common
-    outputs.nixosModules.hyprland
+    nixosModules.audio
+    nixosModules.common
+    nixosModules.hardware
+    nixosModules.hyprland
   ]
   ++ (import ../../users/lortane {
+    inherit inputs nixosModules pkgs;
     hostModules = [ ../../users/lortane/home/hosts/jack ];
   });
+
+  hardware.razer.enable = true;
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;
