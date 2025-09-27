@@ -47,8 +47,6 @@
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       #overlays = import ./overlays { inherit inputs; };
 
-      homeConfigurations = { };
-
       nixosConfigurations = {
         boris = mkNixOSConfig ./hosts/boris;
         jack = mkNixOSConfig ./hosts/jack;
