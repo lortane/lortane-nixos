@@ -56,7 +56,7 @@ in
 
   config = mkIf cfg.enable {
     # WSL-specific configurations
-    wsl = mkIf (builtins.pathExists <nixos-wsl/modules>) {
+    wsl = {
       enable = true;
       defaultUser = cfg.defaultUser;
       startMenuLaunchers = cfg.startMenuLaunchers;
