@@ -1,24 +1,26 @@
 {
   inputs,
-  outputs,
   config,
   pkgs,
   ...
 }:
 
+let
+  nixosModules = import ../../modules/nixos;
+in
 {
   imports = [
     ./boot.nix
     ./hardware.nix
     ./networking.nix
 
-    outputs.nixosModules.audio
-    outputs.nixosModules.common
-    outputs.nixosModules.hardware
-    outputs.nixosModules.hyprland
+    nixosModules.audio
+    nixosModules.common
+    nixosModules.hardware
+    nixosModules.hyprland
   ]
   ++ (import ../../users/lortane {
-    inherit inputs outputs pkgs;
+    inherit inputs nixosModules pkgs;
     hostModules = [ ../../users/lortane/home/hosts/wes ];
   });
 
