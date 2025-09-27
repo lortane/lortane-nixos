@@ -1,7 +1,10 @@
-{ outputs, pkgs, ... }:
+{  ... }:
 
+let
+  homeModules = import ../../../../modules/home;
+in
 {
-  imports = [ outputs.homeModules.hyprland ];
+  imports = [ homeModules.hyprland ];
 
   wayland.windowManager.hyprland = {
     enable = true;

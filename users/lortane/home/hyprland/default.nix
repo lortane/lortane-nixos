@@ -1,21 +1,16 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
-}:
+{ ... }:
 
 {
   imports = [
-    ./fzf-open.nix
+    #./fzf-open.nix
     ./hyprland.nix
     #./nextcloud-sync.nix need to setup secrets
-    ./packages.nix
+    #./packages.nix
     #./spotify-player.nix need to setup secrets
-    ./stylix.nix
-    ./waybar.nix
-    ./xdg.nix
-    ./yazi.nix
+    #./stylix.nix
+    #./waybar.nix
+    #./xdg.nix
+    #./yazi.nix
 
   ];
 }

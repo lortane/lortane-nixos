@@ -21,7 +21,7 @@ in
   ]
   ++ (import ../../users/lortane {
     inherit inputs nixosModules pkgs;
-    hostModules = [ ../../users/lortane/home/hosts/jack ];
+    hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
   });
 
   hardware.razer.enable = true;
