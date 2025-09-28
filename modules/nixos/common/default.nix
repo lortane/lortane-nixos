@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   imports = [
     ./locale.nix
@@ -6,6 +8,8 @@
     ./security.nix
     ./zsh.nix
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.firewall.enable = true;
   nixpkgs.config.allowUnfree = true;

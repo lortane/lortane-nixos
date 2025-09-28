@@ -1,4 +1,4 @@
-{  ... }:
+{ ... }:
 
 let
   homeModules = import ../../../../modules/home;
