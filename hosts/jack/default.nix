@@ -15,9 +15,9 @@ in
     ./networking.nix
 
     nixosModules.audio
+    nixosModules.awesomewm
     nixosModules.common
     nixosModules.hardware
-    nixosModules.hyprland
   ]
   ++ (import ../../users/lortane {
     inherit inputs nixosModules pkgs;

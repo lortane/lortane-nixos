@@ -1,5 +1,10 @@
 { ... }:
 
+let
+  homeModules = import ../../../../../modules/home;
+in
 {
-  imports = [ ../../hyprland ];
+  imports = [
+    homeModules.awesomewm
+  ];
 }
