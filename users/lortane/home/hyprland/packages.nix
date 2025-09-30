@@ -5,7 +5,7 @@
     with pkgs;
     [
       audacity
-      drawio
+      # drawio
       gimp
       inkscape
       jitsi-meet-electron
