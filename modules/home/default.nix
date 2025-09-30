@@ -9,4 +9,5 @@
   nextcloud-sync = import ./nextcloud-sync;
   starship = import ./starship;
   stylix = import ./stylix;
+  xmonad = import ./xmonad;
 }

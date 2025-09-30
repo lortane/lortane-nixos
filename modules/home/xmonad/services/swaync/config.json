@@ -1,0 +1,67 @@
+{
+  "$schema": "/nix/store/94xla9wizfyjfck7a56wfbgd8a22qcjv-SwayNotificationCenter-0.12.2/etc/xdg/swaync/configSchema.json",
+
+  "positionX": "right",
+  "positionY": "top",
+  "control-center-positionX": "none",
+  "control-center-positionY": "none",
+  "control-center-margin-top": 8,
+  "control-center-margin-bottom": 8,
+  "control-center-margin-right": 8,
+  "control-center-margin-left": 8,
+  "control-center-width": 500,
+  "control-center-height": -1,
+  "fit-to-screen": false,
+  "layer-shell-cover-screen": true,
+
+  "layer-shell": true,
+  "layer": "overlay",
+  "control-center-layer": "overlay",
+  "cssPriority": "user",
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "notification-inline-replies": true,
+  "timeout": 10,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "notification-window-width": 500,
+  "keyboard-shortcuts": true,
+  "image-visibility": "always",
+  "transition-time": 200,
+  "hide-on-clear": true,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+
+  "widgets": [
+    "dnd",
+    "mpris",
+    "volume",
+    "backlight",
+    "title",
+    "notifications"
+  ],
+  "widget-config": {
+    "notifications": {
+      "vexpand": false
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": ""
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "mpris": {
+      "autohide": true,
+      "image-size": 80,
+      "image-radius": 10
+    },
+    "volume": {
+      "label": ""
+    },
+    "backlight": {
+      "label": "󰃞"
+    }
+  }
+}

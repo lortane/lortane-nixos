@@ -5,6 +5,6 @@ let
 in
 {
   imports = [
-    homeModules.awesomewm
+    homeModules.xmonad
   ];
 }

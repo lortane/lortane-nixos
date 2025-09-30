@@ -14,10 +14,9 @@ in
     ./hardware.nix
     ./networking.nix
 
-    nixosModules.audio
-    nixosModules.awesomewm
     nixosModules.common
     nixosModules.hardware
+    nixosModules.xmonad
   ]
   ++ (import ../../users/lortane {
     inherit inputs nixosModules pkgs;
