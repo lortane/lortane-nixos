@@ -1,41 +1,51 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkIf mkDefault;
   cfg = config.desktop;
-  appCfg = cfg.apps;
 
-  appGroups = {
-    # Core apps - always enabled for desktop
-    core = [
-      "keepassxc"
-      "firefox"
-    ];
+  appBundles = {
+    core = {
+      modules = [
+        ./keepassxc
+      ];
+      packages = with pkgs; [ nautilus ];
+    };
 
-    # Optional app groups
-    productivity = [
-      "libreoffice"
-    ];
+    productivity = {
+      modules = [ ];
+      packages = with pkgs; [ kdePackages.okular ];
+    };
 
-    development = [
-      "vscode"
-    ];
+    development = {
+      modules = [ ];
+      packages = with pkgs; [ uv ];
+    };
 
-    media = [
-      "vlc"
-    ];
+    media = {
+      modules = [ ];
+      packages = with pkgs; [ gimp ];
+    };
 
-    gaming = [
-      "steam"
-    ];
+    gaming = {
+      modules = [ ];
+      packages = with pkgs; [ winetricks ];
+    };
   };
+
+  allModules = lib.concatLists (lib.attrValues (lib.mapAttrs (name: group: group.modules) appBundles));
+
 in
 {
-  imports = [
-    ./apps/keepassxc
-  ];
+  # Import ALL modules unconditionally, let each module decide if it should be active
+  imports = allModules;
 
-  options.desktop.apps = {
+  options.desktop.appBundles = {
     core = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -43,7 +53,6 @@ in
       description = "Core desktop applications";
     };
 
-    # Optional app groups
     productivity = lib.mkEnableOption "productivity applications";
     development = lib.mkEnableOption "development tools";
     media = lib.mkEnableOption "media applications";
@@ -51,23 +60,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Package bundles for each group
+    # Package bundles for each group - conditionally enable in config section
     home.packages = lib.concatLists [
-      (lib.optionals cfg.apps.core (with pkgs; [
-        nautilus
-      ]))
-      (lib.optionals cfg.apps.productivity (with pkgs; [
-        okular
-      ]))
-      (lib.optionals cfg.apps.development (with pkgs; [
-        uv
-      ]))
-      (lib.optionals cfg.apps.media (with pkgs; [
-        gimp
-      ]))
-      (lib.optionals cfg.apps.gaming (with pkgs; [
-        winetricks
-      ]))
+      (lib.optionals cfg.appBundles.core appBundles.core.packages)
+      (lib.optionals cfg.appBundles.productivity appBundles.productivity.packages)
+      (lib.optionals cfg.appBundles.development appBundles.development.packages)
+      (lib.optionals cfg.appBundles.media appBundles.media.packages)
+      (lib.optionals cfg.appBundles.gaming appBundles.gaming.packages)
     ];
   };
 }

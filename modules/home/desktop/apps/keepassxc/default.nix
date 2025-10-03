@@ -6,12 +6,13 @@
 }:
 
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib) mkIf mkDefault;
+
   cfg = config.desktop;
+  shouldEnable = cfg.enable && cfg.appBundles.core;
 in
 {
-  # This app is automatically enabled for all desktop hosts
-  config = mkIf (cfg.enable && cfg.apps.core) {
+  config = mkIf shouldEnable {
     programs.keepassxc = {
       enable = mkDefault true;
 

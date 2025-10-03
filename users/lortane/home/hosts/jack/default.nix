@@ -13,5 +13,12 @@ in
     windowManager = "awesome";
 
     starship.enable = true;
+
+    appBundles = {
+      productivity = true;
+      development = true;
+      media = true;
+      gaming = false;
+    };
   };
 }

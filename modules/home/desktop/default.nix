@@ -11,12 +11,10 @@ let
   # Map of available WMs - import ALL unconditionally
   wmModules = {
     awesome = ./wm/awesome;
-    # Add other WMs here
   };
 
   # Import ALL WM modules
   allWmImports = builtins.attrValues wmModules;
-
 in
 {
   imports = allWmImports ++ [
@@ -34,24 +32,18 @@ in
     };
 
     # App groups - defined in apps.nix
-    apps = lib.mkOption {
-      type = lib.types.attrsOf lib.types.bool;
+    appBundles = lib.mkOption {
+      type = lib.types.submodule { };
       default = { };
       description = "Desktop application groups";
     };
   };
 
+  # Common home desktop configuration
   config = mkIf config.desktop.enable {
-    # Common home desktop configuration
     home.sessionVariables = {
       EDITOR = "vim";
       BROWSER = "firefox";
     };
-
-    home.packages = with pkgs; [
-      file
-      tree
-      htop
-    ];
   };
 }
