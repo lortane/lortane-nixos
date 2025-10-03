@@ -14,7 +14,7 @@ in
     ./hardware.nix
     ./networking.nix
 
-    nixosModules.awesomewm
+    nixosModules.desktop
     nixosModules.common
     nixosModules.hardware
   ]
@@ -24,8 +24,8 @@ in
   });
 
   virtualisation.vmware.guest.enable = true;
-
   hardware.razer.enable = true;
+  desktop.windowManager = "awesome";
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

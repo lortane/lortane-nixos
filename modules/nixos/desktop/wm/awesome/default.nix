@@ -4,10 +4,6 @@ let
   inherit (lib) mkDefault;
 in
 {
-  imports = [
-    ../audio
-  ];
-
   # Make greetd launch only if graphical target is available
   systemd.services.greetd = {
     enable = true;

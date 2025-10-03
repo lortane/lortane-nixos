@@ -5,11 +5,11 @@
   home.file.".config/awesome".source = ./awesome;
 
   home.packages = with pkgs; [
-    rofi
     feh
     rofi
     picom
     imagemagick
     firefox
+    wezterm
   ];
 }

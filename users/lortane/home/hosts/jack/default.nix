@@ -5,6 +5,9 @@ let
 in
 {
   imports = [
-    homeModules.awesomewm
+    homeModules.desktop
   ];
+
+  desktop.windowManager = "awesome";
+  desktop.starship.enable = true;
 }
