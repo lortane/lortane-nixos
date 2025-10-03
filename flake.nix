@@ -50,6 +50,7 @@
       nixosConfigurations = {
         boris = mkNixOSConfig ./hosts/boris;
         jack = mkNixOSConfig ./hosts/jack;
+        meg = mkNixOSConfig ./hosts/meg;
         wes = mkNixOSConfig ./hosts/wes;
         wsl = mkNixOSConfig ./hosts/wsl;
       };

@@ -4,6 +4,10 @@ let
   inherit (lib) mkDefault;
 in
 {
+  imports = [
+    ../audio
+  ];
+
   environment.systemPackages = [ pkgs.tuigreet ];
   security.pam.services.greetd = { };
 
