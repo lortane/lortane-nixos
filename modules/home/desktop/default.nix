@@ -21,7 +21,7 @@ in
 {
   imports = allWmImports ++ [
     ./starship
-    # ./apps.nix
+    ./apps
   ];
 
   options.desktop = {
@@ -31,6 +31,13 @@ in
       type = lib.types.enum ([ "none" ] ++ (builtins.attrNames wmModules));
       default = "awesome";
       description = "Select the window manager to configure for home";
+    };
+
+    # App groups - defined in apps.nix
+    apps = lib.mkOption {
+      type = lib.types.attrsOf lib.types.bool;
+      default = { };
+      description = "Desktop application groups";
     };
   };
 
