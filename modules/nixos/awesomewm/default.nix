@@ -8,8 +8,14 @@ in
     ../audio
   ];
 
-  environment.systemPackages = [ pkgs.tuigreet ];
-  security.pam.services.greetd = { };
+  # Make greetd launch only if graphical target is available
+  systemd.services.greetd = {
+    enable = true;
+    unitConfig = {
+      WantedBy = "graphical.target";
+      After = "multi-user.target";
+    };
+  };
 
   services = {
     xserver = {
