@@ -8,6 +8,10 @@ in
     homeModules.desktop
   ];
 
-  desktop.windowManager = "awesome";
-  desktop.starship.enable = true;
+  desktop = {
+    enable = true;
+    windowManager = "awesome";
+
+    starship.enable = true;
+  };
 }
