@@ -13,6 +13,7 @@ let
     core = {
       modules = [
         ./keepassxc
+        ./librewolf
       ];
       packages = with pkgs; [ nautilus ];
     };

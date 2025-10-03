@@ -38,12 +38,4 @@ in
       description = "Desktop application groups";
     };
   };
-
-  # Common home desktop configuration
-  config = mkIf config.desktop.enable {
-    home.sessionVariables = {
-      EDITOR = "vim";
-      BROWSER = "firefox";
-    };
-  };
 }
