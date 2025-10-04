@@ -23,6 +23,9 @@ let
       users."lortane" = {
         imports = [ ./home ] ++ hostHomeModules;
       };
+      extraSpecialArgs = {
+        spicetify-nix = inputs.spicetify-nix;
+      };
     };
   };
 in

@@ -14,6 +14,7 @@ let
       modules = [
         ./keepassxc
         ./librewolf
+        ./spicetify
         ./wezterm
       ];
       packages = with pkgs; [
