@@ -1,5 +1,4 @@
 { outputs, ... }:
 
 {
-  imports = [ ../../hyprland ];
 }
