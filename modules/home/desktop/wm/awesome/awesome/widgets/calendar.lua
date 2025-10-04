@@ -36,7 +36,7 @@ calendar.create = function(screen)
       mode = "outside",
       align = "right",
       timer_function = function()
-         return os.date("The date today is %B %d, %Y.")
+         return os.date("%B %d, %Y.")
       end,
       preferred_positions = {"right", "left", "top", "bottom"},
       margin_leftright = dpi(8),
@@ -50,12 +50,12 @@ calendar.create = function(screen)
    -- Calendar Widget
    local month_calendar = awful.widget.calendar_popup.month({
       screen = screen,
-      start_sunday = true,
+      start_sunday = false,
       spacing = 10,
       font = beautiful.title_font,
       long_weekdays = true,
       margin = 0, -- 10
-      style_month = {border_width = 0, padding = 12, shape = cal_shape, padding = 25},
+      style_month = {border_width = 0, padding = 12, shape = nil},
       style_header = {border_width = 0, bg_color = "#00000000"},
       style_weekday = {border_width = 0, bg_color = "#00000000"},
       style_normal = {border_width = 0, bg_color = "#00000000"},
@@ -63,7 +63,7 @@ calendar.create = function(screen)
    })
 
    -- Attach calentar to clock_widget
-   month_calendar:attach(clock_widget, "tc" , { on_pressed = true, on_hover = false })
+   month_calendar:attach(clock_widget, "tr" , { on_pressed = true, on_hover = false })
 
    return clock_widget
 end

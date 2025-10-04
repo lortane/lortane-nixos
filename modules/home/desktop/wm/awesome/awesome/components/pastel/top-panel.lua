@@ -17,6 +17,7 @@ local gears = require("gears")
 local dpi = beautiful.xresources.apply_dpi
 
 -- import widgets
+local tag_list = require("widgets.tag-list")
 local task_list = require("widgets.task-list")
 
 -- define module table
@@ -40,14 +41,18 @@ top_panel.create = function(s)
    panel:setup {
       expand = "none",
       layout = wibox.layout.align.horizontal,
+      {
+	 layout = wibox.layout.fixed.horizontal,
+	 tag_list.create(s),
+      },
       task_list.create(s),
-      require("widgets.calendar").create(s),
       {
          layout = wibox.layout.fixed.horizontal,
          wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5)),
          require("widgets.bluetooth"),
          require("widgets.network")(),
-         require("widgets.battery"),
+       	 require("widgets.battery"),
+         require("widgets.calendar").create(s),
          wibox.layout.margin(require("widgets.layout-box"), dpi(5), dpi(5), dpi(5), dpi(5))
       }
    }

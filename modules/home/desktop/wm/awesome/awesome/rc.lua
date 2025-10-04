@@ -18,7 +18,6 @@ local awful = require("awful")
 
 local themes = {
    "pastel", -- 1
-   "mirage"  -- 2
 }
 
 -- change this number to use the corresponding theme
@@ -30,7 +29,7 @@ apps = {
    network_manager = "", -- recommended: nm-connection-editor
    power_manager = "", -- recommended: xfce4-power-manager
    terminal = "wezterm",
-   launcher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
+   launcher = "rofi -show drun",
    lock = "i3lock",
    screenshot = "scrot -e 'mv $f ~/Pictures/ 2>/dev/null'",
    filebrowser = "nautilus"
@@ -94,16 +93,6 @@ awful.layout.layouts = {
    awful.layout.suit.max,
 }
 
--- remove gaps if layout is set to max
-tag.connect_signal('property::layout', function(t)
-   local current_layout = awful.tag.getproperty(t, 'layout')
-   if (current_layout == awful.layout.suit.max) then
-      t.gap = 0
-   else
-      t.gap = beautiful.useless_gap
-   end
-end)
-
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
    -- Set the window as a slave (put it at the end of others instead of setting it as master)
@@ -117,6 +106,13 @@ client.connect_signal("manage", function (c)
    end
 end)
 
+-- Signal to change border color on focus
+client.connect_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+end)
+client.connect_signal("unfocus", function(c)
+    c.border_color = beautiful.border_normal
+end)
 
 -- ===================================================================
 -- Client Focusing
@@ -125,11 +121,6 @@ end)
 
 -- Autofocus a new client when previously focused one is closed
 require("awful.autofocus")
-
--- Focus clients under mouse
-client.connect_signal("mouse::enter", function(c)
-   c:emit_signal("request::activate", "mouse_enter", {raise = false})
-end)
 
 
 -- ===================================================================

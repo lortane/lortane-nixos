@@ -572,7 +572,7 @@ keys.clientkeys = gears.table.join(
 )
 
 -- Bind all key numbers to tags
-for i = 1, 9 do
+for i = 1, 4 do
    keys.globalkeys = gears.table.join(keys.globalkeys,
       -- Switch to tag
       awful.key({modkey}, "#" .. i + 9,

@@ -42,13 +42,13 @@ theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
 -- Window Gap Distance
-theme.useless_gap = dpi(7)
+theme.useless_gap = dpi(0)
 
 -- Show Gaps if Only One Client is Visible
-theme.gap_single_client = true
+theme.gap_single_client = false
 
 -- Window Borders
-theme.border_width = dpi(0)
+theme.border_width = dpi(1)
 theme.border_normal = theme.bg_normal
 theme.border_focus = "#ff8a65"
 theme.border_marked = theme.fg_urgent
