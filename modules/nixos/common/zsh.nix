@@ -5,6 +5,6 @@
     enableLsColors = true;
 
     syntaxHighlighting.enable = true;
-    autosuggestions.enable = true; 
+    autosuggestions.enable = true;
   };
 }

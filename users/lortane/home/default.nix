@@ -10,5 +10,4 @@ in
 
     homeModules.common
   ];
-
 }

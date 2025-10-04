@@ -16,8 +16,13 @@ let
       };
     };
 
-    home-manager.users."lortane" = {
-      imports = [ ./home ] ++ hostHomeModules;
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+
+      users."lortane" = {
+        imports = [ ./home ] ++ hostHomeModules;
+      };
     };
   };
 in

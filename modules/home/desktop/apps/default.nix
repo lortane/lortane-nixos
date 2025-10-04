@@ -16,27 +16,53 @@ let
         ./librewolf
         ./wezterm
       ];
-      packages = with pkgs; [ nautilus ];
+      packages = with pkgs; [
+        libnotify # desktop notifications
+        nautilus
+        poweralertd # power event notifications
+        tor-browser # privacy-focused browser for testing
+        ungoogled-chromium # privacy-focused chrome for testing
+      ];
     };
 
     productivity = {
       modules = [ ];
-      packages = with pkgs; [ kdePackages.okular ];
+      packages = with pkgs; [
+        drawio
+        kdePackages.kleopatra # certificate manager
+        kdePackages.okular
+        libreoffice
+        nextcloud-client # cloud sync
+        nicotine-plus # soulseek client
+        protonvpn-gui # VPN client
+        qalculate-gtk # calculator
+      ];
     };
 
     development = {
       modules = [ ];
-      packages = with pkgs; [ uv ];
+      packages = with pkgs; [
+        gcc
+        gdb
+        hydra-check
+        nix-init
+        nixfmt-rfc-style
+        nurl
+        sqlitebrowser
+        uv
+      ];
     };
 
     media = {
       modules = [ ];
-      packages = with pkgs; [ gimp ];
-    };
-
-    gaming = {
-      modules = [ ];
-      packages = with pkgs; [ winetricks ];
+      packages = with pkgs; [
+        gimp
+        mpv # video player
+        imv # image viewer
+        ffmpeg # media processing
+        pamixer # audio mixing cli tool
+        playerctl # media player control
+      ];
     };
   };
 
@@ -60,7 +86,6 @@ in
     productivity = lib.mkEnableOption "productivity applications";
     development = lib.mkEnableOption "development tools";
     media = lib.mkEnableOption "media applications";
-    gaming = lib.mkEnableOption "gaming applications";
   };
 
   config = mkIf cfg.enable {
@@ -70,7 +95,6 @@ in
       (lib.optionals cfg.appBundles.productivity appBundles.productivity.packages)
       (lib.optionals cfg.appBundles.development appBundles.development.packages)
       (lib.optionals cfg.appBundles.media appBundles.media.packages)
-      (lib.optionals cfg.appBundles.gaming appBundles.gaming.packages)
     ];
   };
 }

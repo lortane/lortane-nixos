@@ -18,7 +18,6 @@ in
       productivity = true;
       development = true;
       media = true;
-      gaming = false;
     };
   };
 }
