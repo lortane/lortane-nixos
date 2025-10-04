@@ -14,6 +14,7 @@ let
       modules = [
         ./keepassxc
         ./librewolf
+        ./wezterm
       ];
       packages = with pkgs; [ nautilus ];
     };
@@ -39,7 +40,9 @@ let
     };
   };
 
-  allModules = lib.concatLists (lib.attrValues (lib.mapAttrs (name: group: group.modules) appBundles));
+  allModules = lib.concatLists (
+    lib.attrValues (lib.mapAttrs (name: group: group.modules) appBundles)
+  );
 
 in
 {

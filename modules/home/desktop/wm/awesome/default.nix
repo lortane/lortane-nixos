@@ -10,6 +10,5 @@
     picom
     imagemagick
     firefox
-    wezterm
   ];
 }
