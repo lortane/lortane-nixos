@@ -16,6 +16,7 @@ in
     nixosModules.desktop
     nixosModules.common
     nixosModules.hardware
+    nixosModules.virtualisation
   ]
   ++ (import ../../users/lortane {
     inherit inputs nixosModules pkgs;
@@ -23,6 +24,7 @@ in
   });
 
   virtualisation.vmware.guest.enable = true;
+  #virtualisation.qemuHost.enable = true; disable for now since tkinter dependency is broken
   hardware.razer.enable = true;
   desktop.windowManager = "awesome";
 
