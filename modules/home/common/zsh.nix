@@ -10,6 +10,7 @@ in
 {
   programs.zsh = {
     enable = true;
+    
     initContent = lib.mkBefore ''
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
