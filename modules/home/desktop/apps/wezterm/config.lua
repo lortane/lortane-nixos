@@ -32,9 +32,6 @@ local config = {}
 config.max_fps = 240
 config.animation_fps = 240
 
-config.color_scheme = "Catppuccin Macchiato"
--- config.font = wezterm.font("JetBrainsMono Nerd Font")
-
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true

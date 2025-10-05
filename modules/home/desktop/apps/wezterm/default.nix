@@ -10,6 +10,7 @@ in
   config = mkIf shouldEnable {
     programs.wezterm = {
       enable = true;
+      enableZshIntegration = true;
       extraConfig = builtins.readFile ./config.lua;
     };
   };

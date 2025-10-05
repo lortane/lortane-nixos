@@ -19,7 +19,7 @@
     nixosModules.virtualisation
 
     (import ../../users/lortane {
-      inherit nixosModules;
+      inherit inputs nixosModules pkgs;
       extraGroups = [ "openrazer" ];
     })
 
