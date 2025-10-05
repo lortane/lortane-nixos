@@ -23,8 +23,7 @@ in
     hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
   });
 
-  virtualisation.vmware.guest.enable = true;
-  #virtualisation.qemuHost.enable = true; disable for now since tkinter dependency is broken
+  services.qemuGuest.enable = true;
   hardware.razer.enable = true;
   desktop.windowManager = "awesome";
 
