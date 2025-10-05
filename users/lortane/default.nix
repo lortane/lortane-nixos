@@ -1,36 +1,12 @@
+{ nixosModules, ... }:
+
 {
-  inputs,
-  nixosModules,
-  hostHomeModules ? [ ],
-  ...
-}:
+  imports = [
+    nixosModules.normal-users
+  ];
 
-let
-  userSpecificModule = {
-    normalUsers = {
-      lortane = {
-        extraGroups = [
-          "wheel"
-        ];
-        sshKeyFiles = (import ./keys.nix).keyPaths;
-      };
-    };
-
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-
-      users."lortane" = {
-        imports = [ ./home ] ++ hostHomeModules;
-      };
-      extraSpecialArgs = {
-        spicetify-nix = inputs.spicetify-nix;
-      };
-    };
+  normalUsers.lortane = {
+    extraGroups = [ "wheel" ];
+    sshKeyFiles = (import ./keys.nix).keyPaths;
   };
-in
-[
-  userSpecificModule
-  nixosModules.normal-users
-  inputs.home-manager.nixosModules.home-manager
-]
+}

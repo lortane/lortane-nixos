@@ -42,6 +42,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
+            homeModules = import ./modules/home;
             nixosModules = import ./modules/nixos;
           };
           modules = [

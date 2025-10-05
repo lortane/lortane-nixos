@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  homeModules,
   nixosModules,
   pkgs,
   ...
@@ -15,13 +16,11 @@
     ./wireguard.nix
 
     nixosModules.common
-  ]
-  ++ (import ../../users/lortane {
-    inherit inputs nixosModules pkgs;
-    hostHomeModules = [ ];
-  });
 
-  _module.args.nixosModules = nixosModules;
+    (import ../../users/lortane {
+      inherit nixosModules;
+    })
+  ];
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

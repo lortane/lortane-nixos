@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  homeModules,
   nixosModules,
   pkgs,
   ...
@@ -15,11 +16,16 @@
     nixosModules.common
     nixosModules.hardware
     nixosModules.virtualisation
-  ]
-  ++ (import ../../users/lortane {
-    inherit inputs nixosModules pkgs;
-    hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
-  });
+
+    (import ../../users/lortane {
+      inherit nixosModules;
+    })
+
+    (import ../../users/lortane/home-manager.nix {
+      inherit inputs homeModules;
+      hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
+    })
+  ];
 
   services.qemuGuest.enable = true;
   hardware.razer.enable = true;
