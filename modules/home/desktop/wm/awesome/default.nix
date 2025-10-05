@@ -1,14 +1,33 @@
-{ config, pkgs, ... }:
-
 {
-  # This creates an editable file
-  home.file.".config/awesome".source = ./awesome;
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-  home.packages = with pkgs; [
-    feh
-    rofi
-    picom
-    imagemagick
-    firefox
-  ];
+let
+  cfg = config.desktop;
+in
+{
+  config = lib.mkIf (cfg.enable && cfg.windowManager == "awesome") {
+    # Enable the awesome WM module (this handles startup and package)
+    xsession.enable = true;
+    xsession.windowManager.awesome = {
+      enable = true;
+    };
+
+    home.file.".xinitrc".text = "exec ${pkgs.awesome}/bin/awesome";
+    programs.rofi.enable = true;
+    #services.picom.enable = true;
+
+    xdg.configFile."awesome" = {
+      source = ./awesome;
+      recursive = true;
+    };
+
+    home.packages = with pkgs; [
+      feh
+      imagemagick
+    ];
+  };
 }

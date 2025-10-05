@@ -14,18 +14,12 @@ in
   };
 
   services = {
-    xserver = {
-      enable = mkDefault true;
-      windowManager.awesome.enable = mkDefault true;
-      displayManager = {
-        lightdm.enable = false;
-        startx.enable = true;
-      };
-    };
+    xserver.enable = true;
+    xserver.displayManager.startx.enable = true;
 
     greetd = {
-      enable = mkDefault true;
-      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'startx ${pkgs.awesome}/bin/awesome'";
+      enable = true;
+      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd startx";
     };
   };
 }
