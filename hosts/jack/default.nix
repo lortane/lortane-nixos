@@ -11,6 +11,7 @@
   imports = [
     ./hardware.nix
     ./networking.nix
+    ./secrets
 
     nixosModules.desktop
     nixosModules.common
@@ -19,6 +20,7 @@
 
     (import ../../users/lortane {
       inherit nixosModules;
+      extraGroups = [ "openrazer" ];
     })
 
     (import ../../users/lortane/home-manager.nix {

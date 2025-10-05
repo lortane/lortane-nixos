@@ -1,4 +1,8 @@
-{ nixosModules, ... }:
+{
+  nixosModules,
+  extraGroups ? [ ],
+  ...
+}:
 
 {
   imports = [
@@ -6,7 +10,7 @@
   ];
 
   normalUsers.lortane = {
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" ] ++ extraGroups;
     sshKeyFiles = (import ./keys.nix).keyPaths;
   };
 }
