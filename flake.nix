@@ -40,7 +40,10 @@
       mkNixOSConfig =
         hostPath:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+            nixosModules = import ./modules/nixos;
+          };
           modules = [
             hostPath
           ];

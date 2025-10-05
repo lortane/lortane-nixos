@@ -1,13 +1,11 @@
 {
   inputs,
   config,
+  nixosModules,
   pkgs,
   ...
 }:
 
-let
-  nixosModules = import ../../modules/nixos;
-in
 {
   imports = [
     ./hardware.nix
