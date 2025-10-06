@@ -13,6 +13,7 @@
     ./networking.nix
     # ./secrets
 
+    nixosModules.bootloader
     nixosModules.desktop
     nixosModules.common
 
@@ -26,7 +27,8 @@
     })
   ];
 
-  virtualisation.vmware.guest.enable = true;
+  bootloader.grub.enable = true;
+
   desktop.windowManager = "awesome";
 
   # So I can deploy remotely (review if can be done better)

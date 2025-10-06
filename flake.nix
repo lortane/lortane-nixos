@@ -15,6 +15,9 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -28,36 +31,46 @@
   outputs =
     {
       self,
-      nixpkgs,
       home-manager,
+      nixpkgs,
+      nixos-generators,
       ...
     }@inputs:
     let
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
+      homeModules = import ./modules/home;
+      nixosModules = import ./modules/nixos;
+
       # Helper function to create NixOS configurations
       mkNixOSConfig =
         hostPath:
         nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs;
-            homeModules = import ./modules/home;
-            nixosModules = import ./modules/nixos;
+            inherit inputs homeModules nixosModules;
           };
-          modules = [
-            hostPath
-          ];
+          modules = [ hostPath ];
         };
     in
     {
       #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       #overlays = import ./overlays { inherit inputs; };
 
+      packages.x86_64-linux = {
+        meg = nixos-generators.nixosGenerate {
+          system = "x86_64-linux";
+          modules = [ ./hosts/meg ];
+          specialArgs = {
+            inherit inputs homeModules nixosModules;
+          };
+          format = "vmware";
+        };
+      };
+
       nixosConfigurations = {
         boris = mkNixOSConfig ./hosts/boris;
         jack = mkNixOSConfig ./hosts/jack;
-        meg = mkNixOSConfig ./hosts/meg;
         wes = mkNixOSConfig ./hosts/wes;
         wsl = mkNixOSConfig ./hosts/wsl;
       };
