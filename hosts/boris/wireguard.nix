@@ -19,6 +19,10 @@
         publicKey = "KtTsHnQo5/DWo15LEtPInNeTQ+LDPWJrznCHciSy7Gw=";
         allowedIP = "10.0.0.3";
       };
+      "lortane@meg" = {
+        publicKey = "############################################";
+        allowedIP = "10.0.0.4";
+      };
     };
   };
 }
