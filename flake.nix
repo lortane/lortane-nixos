@@ -58,11 +58,12 @@
       #overlays = import ./overlays { inherit inputs; };
 
       packages.x86_64-linux = {
-        meg = nixos-generators.nixosGenerate {
+        vmware = nixos-generators.nixosGenerate {
           system = "x86_64-linux";
-          modules = [ ./hosts/meg ];
+          modules = [ ./hosts/wes ];
           specialArgs = {
             inherit inputs homeModules nixosModules;
+            isImage = true;
           };
           format = "vmware";
         };

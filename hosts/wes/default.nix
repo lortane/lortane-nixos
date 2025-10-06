@@ -1,25 +1,35 @@
 {
-  inputs,
-  config,
-  nixosModules,
+  lib,
   pkgs,
+  config,
+  inputs,
+  homeModules,
+  nixosModules,
+  isImage ? false,
   ...
 }:
 
 {
   imports = [
-    ./hardware.nix
     ./networking.nix
 
+    nixosModules.bootloader
     nixosModules.desktop
     nixosModules.common
     nixosModules.hardware
-  ]
-  ++ (import ../../users/lortane {
-    inherit inputs nixosModules pkgs;
-    hostModules = [ ../../users/lortane/home/hosts/wes ];
-  });
 
+    (import ../../users/lortane {
+      inherit inputs nixosModules pkgs;
+    })
+
+    (import ../../users/lortane/home-manager.nix {
+      inherit inputs homeModules;
+      hostHomeModules = [ ../../users/lortane/home/hosts/wes ];
+    })
+  ]
+  ++ lib.optionals (!isImage) [ ./harware.nix ];
+
+  bootloader.grub.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
 
   desktop.windowManager = "awesome";

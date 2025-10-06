@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkOption mkIf types;
+  inherit (lib)
+    mkDefault
+    mkOption
+    mkIf
+    types
+    ;
 in
 {
   options.bootloader = {
