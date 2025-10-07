@@ -45,7 +45,6 @@ in
 
     (mkIf config.bootloader.grub.enable {
       boot.loader.grub.enable = true;
-      boot.loader.grub.version = 2;
       boot.loader.grub.device = config.bootloader.grub.device;
       boot.loader.grub.efiSupport = mkDefault true;
       boot.loader.grub.efiInstallAsRemovable = mkDefault true;

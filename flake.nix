@@ -44,7 +44,9 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
       };
 
       homeModules = import ./modules/home;
@@ -54,9 +56,10 @@
       mkNixOSConfig =
         hostPath:
         nixpkgs.lib.nixosSystem {
-          inherit system;
+          inherit system pkgs;
           specialArgs = {
             inherit inputs homeModules nixosModules;
+            isImage = false;
           };
           modules = [ hostPath ];
         };
@@ -64,12 +67,12 @@
     {
       packages.x86_64-linux = {
         vmware = nixos-generators.nixosGenerate {
-          system = "x86_64-linux";
-          modules = [ ./hosts/wes ];
+          inherit system pkgs;
           specialArgs = {
             inherit inputs homeModules nixosModules;
             isImage = true;
           };
+          modules = [ ./hosts/wes ];
           format = "vmware";
         };
       };

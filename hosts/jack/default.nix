@@ -1,18 +1,20 @@
 {
+  lib,
+  pkgs,
   inputs,
   config,
   homeModules,
   nixosModules,
-  pkgs,
+  isImage ? false,
   ...
 }:
 
 {
   imports = [
-    ./hardware.nix
     ./networking.nix
     ./secrets
 
+    nixosModules.bootloader
     nixosModules.desktop
     nixosModules.common
     nixosModules.hardware
@@ -27,10 +29,11 @@
       inherit inputs homeModules;
       hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
     })
-  ];
+  ]
+  ++ lib.optionals (!isImage) [ ./hardware.nix ];
 
+  bootloader.systemd.enable = true;
   services.qemuGuest.enable = true;
-  hardware.razer.enable = true;
   desktop.windowManager = "awesome";
 
   # So I can deploy remotely (review if can be done better)
