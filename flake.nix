@@ -37,8 +37,7 @@
       ...
     }@inputs:
     let
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      system = "x86_64-linux";
 
       homeModules = import ./modules/home;
       nixosModules = import ./modules/nixos;
@@ -47,6 +46,7 @@
       mkNixOSConfig =
         hostPath:
         nixpkgs.lib.nixosSystem {
+          inherit system;
           specialArgs = {
             inherit inputs homeModules nixosModules;
           };
@@ -54,9 +54,6 @@
         };
     in
     {
-      #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-      #overlays = import ./overlays { inherit inputs; };
-
       packages.x86_64-linux = {
         vmware = nixos-generators.nixosGenerate {
           system = "x86_64-linux";
@@ -75,23 +72,5 @@
         wes = mkNixOSConfig ./hosts/wes;
         wsl = mkNixOSConfig ./hosts/wsl;
       };
-
-      checks = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          flakePkgs = self.packages.${system};
-        in
-        {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
-            };
-          };
-          build-packages = pkgs.linkFarm "flake-packages-${system}" flakePkgs;
-          # deploy-checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-        }
-      );
     };
 }

@@ -27,7 +27,7 @@
       hostHomeModules = [ ../../users/lortane/home/hosts/wes ];
     })
   ]
-  ++ lib.optionals (!isImage) [ ./harware.nix ];
+  ++ lib.optionals (!isImage) [ ./hardware.nix ];
 
   bootloader.grub.enable = true;
   powerManagement.cpuFreqGovernor = "performance";

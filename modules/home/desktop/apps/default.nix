@@ -47,7 +47,6 @@ let
         gdb
         hydra-check
         nix-init
-        nixfmt-rfc-style
         nurl
         sqlitebrowser
         uv
