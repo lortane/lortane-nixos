@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -33,5 +33,7 @@
 
     # Security/encryption tools
     cryptsetup # Disk encryption setup
+    inputs.agenix.packages.${pkgs.system}.default # Agenix encryption tool
+    inputs.agenix-rekey.packages.${pkgs.system}.default # Agenix encryption tool
   ];
 }

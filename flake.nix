@@ -9,6 +9,9 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+    agenix-rekey.inputs.nixpkgs.follows = "nixpkgs";
+
     hypr-contrib.url = "github:hyprwm/contrib";
     hypr-contrib.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -31,13 +34,18 @@
   outputs =
     {
       self,
-      home-manager,
       nixpkgs,
+      agenix-rekey,
+      home-manager,
       nixos-generators,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
 
       homeModules = import ./modules/home;
       nixosModules = import ./modules/nixos;
@@ -71,6 +79,11 @@
         jack = mkNixOSConfig ./hosts/jack;
         wes = mkNixOSConfig ./hosts/wes;
         wsl = mkNixOSConfig ./hosts/wsl;
+      };
+
+      agenix-rekey = agenix-rekey.configure {
+        userFlake = self;
+        nixosConfigurations = self.nixosConfigurations;
       };
     };
 }
