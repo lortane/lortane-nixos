@@ -13,8 +13,7 @@
     useUserPackages = true;
     users.lortane.imports = [ ./home ] ++ hostHomeModules;
     extraSpecialArgs = {
-      spicetify-nix = inputs.spicetify-nix;
-      inherit homeModules;
+      inherit inputs homeModules;
     };
   };
 }

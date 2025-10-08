@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  spicetify-nix,
+  inputs,
   ...
 }:
 
@@ -12,11 +12,11 @@ let
   cfg = config.desktop;
   shouldEnable = cfg.enable && cfg.appBundles.core;
 
-  spicetifyPkgs = spicetify-nix.legacyPackages.${pkgs.system};
+  spicetifyPkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
   imports = [
-    spicetify-nix.homeManagerModules.default
+    inputs.spicetify-nix.homeManagerModules.default
   ];
 
   config = mkIf shouldEnable {
