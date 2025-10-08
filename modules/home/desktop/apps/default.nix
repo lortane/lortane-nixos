@@ -14,7 +14,9 @@ let
       modules = [
         ./keepassxc
         ./librewolf
+        ./nixvim
         ./spicetify
+        ./starship
         ./wezterm
       ];
       packages = with pkgs; [
@@ -33,7 +35,6 @@ let
         kdePackages.kleopatra # certificate manager
         kdePackages.okular
         libreoffice
-        nextcloud-client # cloud sync
         nicotine-plus # soulseek client
         protonvpn-gui # VPN client
         qalculate-gtk # calculator

@@ -18,7 +18,6 @@ let
 in
 {
   imports = allWmImports ++ [
-    ./starship
     ./apps
   ];
 
