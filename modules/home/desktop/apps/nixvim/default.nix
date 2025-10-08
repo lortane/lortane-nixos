@@ -38,7 +38,6 @@ in
       ./plugins/lsp.nix
       ./plugins/ui.nix
       ./plugins/cmp.nix
-      ./plugins/alpha.nix
       ./plugins/lspsaga.nix
       ./plugins/lualine.nix
     ];
