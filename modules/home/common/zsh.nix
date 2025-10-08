@@ -28,12 +28,13 @@ in
     '';
 
     shellAliases = {
-      # Basic utilities (always available)
+      # Basic utilities
       c = "clear";
       dsize = "du -hs";
       findw = "grep -rl";
 
-      # Nixos (always available)
+      # Nixos
+      znix = "z ~/.config/lortanix";
       ns = "nix-shell --run zsh";
       nix-shell = "nix-shell --run zsh";
       nix-clean = "sudo nix-collect-garbage && sudo nix-collect-garbage -d && sudo rm /nix/var/nix/gcroots/auto/* && nix-collect-garbage && nix-collect-garbage -d";

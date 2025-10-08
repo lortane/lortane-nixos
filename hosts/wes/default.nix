@@ -29,7 +29,7 @@
   ]
   ++ lib.optionals (!isImage) [ ./hardware.nix ];
 
-  bootloader.grub.enable = true;
+  bootloader.systemd.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
 
   desktop.windowManager = "awesome";
