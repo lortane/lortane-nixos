@@ -17,12 +17,9 @@
     nixosModules.bootloader
     nixosModules.desktop
     nixosModules.common
-    nixosModules.hardware
-    nixosModules.virtualisation
 
     (import ../../users/lortane {
       inherit inputs nixosModules pkgs;
-      extraGroups = [ "openrazer" ];
     })
 
     (import ../../users/lortane/home-manager.nix {
