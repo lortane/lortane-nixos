@@ -41,6 +41,7 @@
       ...
     }@inputs:
     let
+      lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -55,7 +56,7 @@
       # Helper function to create NixOS configurations
       mkNixOSConfig =
         hostPath:
-        nixpkgs.lib.nixosSystem {
+        lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit inputs homeModules nixosModules;
@@ -63,6 +64,14 @@
           };
           modules = [ hostPath ];
         };
+
+      hosts = {
+        boris = ./hosts/boris;
+        jack  = ./hosts/jack;
+        meg   = ./hosts/meg;
+        wes   = ./hosts/wes;
+        wsl   = ./hosts/wsl;
+      };
     in
     {
       packages.x86_64-linux = {
@@ -77,13 +86,9 @@
         };
       };
 
-      nixosConfigurations = {
-        boris = mkNixOSConfig ./hosts/boris;
-        jack = mkNixOSConfig ./hosts/jack;
-        meg = mkNixOSConfig ./hosts/meg;
-        wes = mkNixOSConfig ./hosts/wes;
-        wsl = mkNixOSConfig ./hosts/wsl;
-      };
+      nixosConfigurations = lib.mapAttrs (hostName: hostPath:
+        mkNixOSConfig hostPath
+      ) hosts;
 
       agenix-rekey = agenix-rekey.configure {
         userFlake = self;
