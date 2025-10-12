@@ -3,20 +3,18 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.networking.wg-client;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkIf
     mkOption
     types
     ;
-in
-{
+in {
   options.networking.wg-client = {
     enable = mkEnableOption "Enable VPN client";
 
@@ -68,7 +66,7 @@ in
 
       allowedIPs = mkOption {
         type = types.listOf types.str;
-        default = [ "0.0.0.0/0" ];
+        default = ["0.0.0.0/0"];
         description = "IP ranges to route through the VPN";
       };
     };
@@ -76,8 +74,8 @@ in
 
   config = mkIf cfg.enable {
     networking.wg-quick.interfaces."${cfg.internalInterface}" = {
-      address = [ "${cfg.clientAddress}/${toString cfg.subnetMask}" ];
-      dns = [ cfg.peer.internalIP ];
+      address = ["${cfg.clientAddress}/${toString cfg.subnetMask}"];
+      dns = [cfg.peer.internalIP];
       privateKeyFile = cfg.privateKeyFile;
 
       peers = [

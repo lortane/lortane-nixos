@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkDefault;
 
   cfg = config.desktop;
   shouldEnable = cfg.enable && cfg.appBundles.core;
-in
-{
+in {
   config = mkIf shouldEnable {
     programs.keepassxc = {
       enable = mkDefault true;

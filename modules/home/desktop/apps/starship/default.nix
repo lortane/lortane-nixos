@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf;
   cfg = config.desktop.starship;
 
@@ -34,10 +32,8 @@ let
   };
 
   # recursive merge: user settings override defaults
-  mergedSettings = lib.recursiveUpdate defaultSettings (cfg.settings or { });
-
-in
-{
+  mergedSettings = lib.recursiveUpdate defaultSettings (cfg.settings or {});
+in {
   options.desktop.starship = {
     enable = lib.mkEnableOption "starship prompt";
 
@@ -49,7 +45,7 @@ in
 
     settings = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
       description = "Override default starship settings";
     };
   };

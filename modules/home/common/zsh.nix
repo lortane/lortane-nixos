@@ -2,12 +2,9 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.cli-tools.enable or false;
-in
-{
+in {
   programs.zsh = {
     enable = true;
 

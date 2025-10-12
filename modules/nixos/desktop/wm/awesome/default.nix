@@ -1,9 +1,10 @@
-{ lib, pkgs, ... }:
-
-let
-  inherit (lib) mkDefault;
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) mkDefault;
+in {
   # Make greetd launch only if graphical target is available
   systemd.services.greetd = {
     enable = true;

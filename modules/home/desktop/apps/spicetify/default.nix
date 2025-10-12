@@ -4,17 +4,14 @@
   pkgs,
   inputs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkDefault;
 
   cfg = config.desktop;
   shouldEnable = cfg.enable && cfg.appBundles.core;
 
   spicetifyPkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-in
-{
+in {
   imports = [
     inputs.spicetify-nix.homeManagerModules.default
   ];

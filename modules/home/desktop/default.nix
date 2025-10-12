@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkEnableOption;
 
   # Map of available WMs - import ALL unconditionally
@@ -15,25 +13,26 @@ let
 
   # Import ALL WM modules
   allWmImports = builtins.attrValues wmModules;
-in
-{
-  imports = allWmImports ++ [
-    ./apps
-  ];
+in {
+  imports =
+    allWmImports
+    ++ [
+      ./apps
+    ];
 
   options.desktop = {
     enable = mkEnableOption "desktop home configuration";
 
     windowManager = lib.mkOption {
-      type = lib.types.enum ([ "none" ] ++ (builtins.attrNames wmModules));
+      type = lib.types.enum (["none"] ++ (builtins.attrNames wmModules));
       default = "awesome";
       description = "Select the window manager to configure for home";
     };
 
     # App groups - defined in apps.nix
     appBundles = lib.mkOption {
-      type = lib.types.submodule { };
-      default = { };
+      type = lib.types.submodule {};
+      default = {};
       description = "Desktop application groups";
     };
   };

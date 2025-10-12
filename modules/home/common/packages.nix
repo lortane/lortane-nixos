@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # File management
     yazi # Terminal file manager with previews
@@ -16,7 +14,7 @@
     bitwise # CLI tool for bit/hex manipulation and conversion
     hexdump # Display file contents in hex, decimal, octal, or ASCII
     xxd # Create hex dumps and convert back from hex
-    nixfmt-rfc-style # Nix formatter
+    alejandra # Nix formatter
 
     # Network utilities
     wget

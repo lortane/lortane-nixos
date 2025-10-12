@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkDefault;
   cfg = config.desktop;
 
@@ -31,7 +29,7 @@ let
     };
 
     productivity = {
-      modules = [ ];
+      modules = [];
       packages = with pkgs; [
         drawio
         kdePackages.kleopatra # certificate manager
@@ -44,7 +42,7 @@ let
     };
 
     development = {
-      modules = [ ];
+      modules = [];
       packages = with pkgs; [
         gcc
         gdb
@@ -57,7 +55,7 @@ let
     };
 
     media = {
-      modules = [ ];
+      modules = [];
       packages = with pkgs; [
         gimp
         mpv # video player
@@ -72,9 +70,7 @@ let
   allModules = lib.concatLists (
     lib.attrValues (lib.mapAttrs (name: group: group.modules) appBundles)
   );
-
-in
-{
+in {
   # Import ALL modules unconditionally, let each module decide if it should be active
   imports = allModules;
 

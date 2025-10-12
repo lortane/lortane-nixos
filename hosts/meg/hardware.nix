@@ -7,10 +7,8 @@
   pkgs,
   modulesPath,
   ...
-}:
-
-{
-  imports = [ ];
+}: {
+  imports = [];
 
   boot.initrd.availableKernelModules = [
     "ata_piix"
@@ -21,9 +19,9 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = [];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/25f9bd7b-aca6-4376-a3ec-d429386506b0";
@@ -40,7 +38,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/81576bde-42af-4aed-b83e-2066a8644825"; }
+    {device = "/dev/disk/by-uuid/81576bde-42af-4aed-b83e-2066a8644825";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -60,17 +60,6 @@
       };
     }
 
-    #AddPythonShebang
-    {
-      key = "<leader>xp";
-      action = "<cmd>lua AddPythonShebang()<CR>";
-      mode = "n";
-      options = {
-        silent = true;
-        desc = "Add Python shebang";
-      };
-    }
-
     #AddBASHShebang
     {
       key = "<leader>xs";
@@ -155,17 +144,6 @@
       options = {
         silent = true;
         desc = "Diff against HEAD";
-      };
-    }
-
-    # FIXME: GBrowse
-    {
-      key = "<leader>go";
-      action = "<cmd>GBrowse<CR>";
-      mode = "n";
-      options = {
-        silent = true;
-        desc = "Browse repository in Git's web UI";
       };
     }
 
@@ -254,26 +232,6 @@
       options = {
         silent = true;
         desc = "New tab terminal";
-      };
-    }
-
-    {
-      key = "<Leader>sh";
-      action = "<cmd> ToggleTerm direction=horizontal <CR>";
-      mode = "n";
-      options = {
-        silent = true;
-        desc = "Horizontal terminal";
-      };
-    }
-
-    {
-      key = "<Leader>sv";
-      action = "<cmd>ToggleTerm direction=vertical size=60 <CR>";
-      mode = "n";
-      options = {
-        silent = true;
-        desc = "Vertical terminal";
       };
     }
 
@@ -405,11 +363,6 @@
           __unkeyed-1 = "<Leader>t";
           group = "Telescope";
           icon = "󰭎";
-        }
-        {
-          __unkeyed-1 = "<Leader>c";
-          group = "Copilot";
-          icon = "";
         }
 
         {

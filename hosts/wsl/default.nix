@@ -5,9 +5,7 @@
   nixosModules,
   homeModules,
   ...
-}:
-
-{
+}: {
   imports = [
     ./networking.nix
 

@@ -1,7 +1,9 @@
-{ config, nixosModules, ... }:
-
 {
-  imports = [ nixosModules.wg-server ];
+  config,
+  nixosModules,
+  ...
+}: {
+  imports = [nixosModules.wg-server];
 
   networking.wg-server = {
     enable = true;

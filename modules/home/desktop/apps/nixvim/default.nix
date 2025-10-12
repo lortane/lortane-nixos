@@ -2,9 +2,7 @@
   pkgs,
   inputs,
   ...
-}:
-
-let
+}: let
   packages = with pkgs; [
     # Required by telescope live grep
     ripgrep
@@ -25,9 +23,8 @@ let
     shfmt
     xdg-utils
   ];
-in
-{
-  imports = [ inputs.nixvim.homeModules.nixvim ];
+in {
+  imports = [inputs.nixvim.homeModules.nixvim];
 
   programs.nixvim = {
     enable = true;
@@ -35,11 +32,11 @@ in
     imports = [
       ./keymaps.nix
       ./options.nix
-      ./plugins/lsp.nix
+      #./plugins/lsp.nix
       ./plugins/ui.nix
-      ./plugins/cmp.nix
-      ./plugins/lspsaga.nix
-      ./plugins/lualine.nix
+      #./plugins/cmp.nix
+      #./plugins/lspsaga.nix
+      #./plugins/lualine.nix
     ];
 
     extraPackages = packages;

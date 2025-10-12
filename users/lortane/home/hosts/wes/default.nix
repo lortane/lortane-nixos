@@ -1,9 +1,6 @@
-{ ... }:
-
-let
+{...}: let
   homeModules = import ../../../../../modules/home;
-in
-{
+in {
   imports = [
     homeModules.desktop
   ];

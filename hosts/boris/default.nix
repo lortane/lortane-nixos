@@ -5,9 +5,7 @@
   nixosModules,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ./ddns.nix
     ./hardware.nix

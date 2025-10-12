@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkDefault mkEnableOption mkIf;
 
   cfg = config.virtualisation.qemuHost;
-in
-{
+in {
   options.virtualisation.qemuHost = {
     enable = mkEnableOption "QEMU virtualisation with libvirtd";
   };
 
   config = mkIf cfg.enable {
-    users.groups.libvirtd = { };
+    users.groups.libvirtd = {};
 
     # Enable virtual manager
     programs.virt-manager.enable = mkDefault true;

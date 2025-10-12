@@ -6,13 +6,13 @@
     cmp = {
       enable = true;
       settings.sources = [
-        { name = "nvim_lsp"; }
-        { name = "nvim_lsp_signature_help"; }
-        { name = "path"; }
-        { name = "buffer"; }
-        { name = "snippy"; }
-        { name = "luasnip"; }
-        { name = "cmp-dap"; }
+        {name = "nvim_lsp";}
+        {name = "nvim_lsp_signature_help";}
+        {name = "path";}
+        {name = "buffer";}
+        {name = "snippy";}
+        {name = "luasnip";}
+        {name = "cmp-dap";}
       ];
       settings.mapping = {
         "<Tab>" = "cmp.mapping.select_next_item()";

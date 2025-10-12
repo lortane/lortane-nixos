@@ -1,6 +1,4 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   nix = {
     # Disable nix channels. Use flakes instead.
     channel.enable = false;
@@ -17,8 +15,8 @@
 
     settings = {
       # Avoid disk full issues
-      min-free = (512 * 1024 * 1024);
-      max-free = (2048 * 1024 * 1024);
+      min-free = 512 * 1024 * 1024;
+      max-free = 2048 * 1024 * 1024;
 
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";

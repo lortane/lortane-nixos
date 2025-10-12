@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   # Define an option to enable this hardware module
   options.hardware.razer.enable = lib.mkEnableOption "Razer hardware support";
 
@@ -21,6 +19,6 @@
     hardware.openrazer.enable = true;
 
     # Add the "openrazer" group to the system
-    users.groups.openrazer = { };
+    users.groups.openrazer = {};
   };
 }

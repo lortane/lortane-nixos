@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.desktop;
-in
-{
+in {
   config = lib.mkIf (cfg.enable && cfg.windowManager == "awesome") {
     # Enable the awesome WM module (this handles startup and package)
     xsession.enable = true;

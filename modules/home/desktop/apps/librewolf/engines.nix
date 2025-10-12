@@ -1,6 +1,4 @@
-pkgs:
-
-{
+pkgs: {
   github = {
     url = "https://github.com/search?q={searchTerms}";
     icon = "https://github.com/favicon.ico";

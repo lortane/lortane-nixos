@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkOption
     mkIf
     types
     ;
-in
-{
+in {
   options.bootloader = {
     systemd.enable = mkOption {
       type = types.bool;

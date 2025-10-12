@@ -1,3 +1,3 @@
 {
-  imports = [ ./razer.nix ];
+  imports = [./razer.nix];
 }

@@ -15,6 +15,7 @@
       cursorline = true;
       list = true;
       expandtab = true;
+      scrolloff = 8;
       shiftround = true;
       shiftwidth = 2;
       signcolumn = "yes";

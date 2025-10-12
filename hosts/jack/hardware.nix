@@ -7,9 +7,7 @@
   pkgs,
   modulesPath,
   ...
-}:
-
-{
+}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -21,9 +19,9 @@
     "sr_mod"
     "virtio_blk"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-amd"];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/73d09739-0121-48ba-bade-e818e4188c01";
@@ -40,7 +38,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/da3a6329-3974-45a9-be4d-58f3fccb6460"; }
+    {device = "/dev/disk/by-uuid/da3a6329-3974-45a9-be4d-58f3fccb6460";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -1,6 +1,8 @@
-{ config, nixosModules, ... }:
-
 {
+  config,
+  nixosModules,
+  ...
+}: {
   imports = [
     nixosModules.wg-client
   ];
@@ -19,7 +21,7 @@
       publicIP = "lortane.com";
       port = 51820;
       internalIP = "10.0.0.1";
-      allowedIPs = [ "0.0.0.0/0" ];
+      allowedIPs = ["0.0.0.0/0"];
     };
   };
 }

@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkDefault mkEnableOption mkIf;
-in
-{
+in {
   options.hardware.intel-gpu.enable = mkEnableOption "Intel GPU harware support";
 
   config = mkIf config.hardware.intel-gpu.enable {
-    services.xserver.videoDrivers = mkDefault [ "modesetting" ];
-    boot.initrd.kernelModules = [ "xe" ];
+    services.xserver.videoDrivers = mkDefault ["modesetting"];
+    boot.initrd.kernelModules = ["xe"];
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "iHD";
     };

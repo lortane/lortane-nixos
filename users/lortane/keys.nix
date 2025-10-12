@@ -3,8 +3,7 @@ let
     ./keys/id_lortane-wes.pub
     ./keys/id_lortane-zack.pub
   ];
-in
-{
+in {
   # actual content
   keyStrings = map builtins.readFile keyFiles;
 

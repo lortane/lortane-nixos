@@ -7,27 +7,26 @@
   nixosModules,
   isImage ? false,
   ...
-}:
+}: {
+  imports =
+    [
+      ./networking.nix
 
-{
-  imports = [
-    ./networking.nix
+      nixosModules.bootloader
+      nixosModules.desktop
+      nixosModules.common
+      nixosModules.hardware
 
-    nixosModules.bootloader
-    nixosModules.desktop
-    nixosModules.common
-    nixosModules.hardware
+      (import ../../users/lortane {
+        inherit inputs nixosModules pkgs;
+      })
 
-    (import ../../users/lortane {
-      inherit inputs nixosModules pkgs;
-    })
-
-    (import ../../users/lortane/home-manager.nix {
-      inherit inputs homeModules;
-      hostHomeModules = [ ../../users/lortane/home/hosts/wes ];
-    })
-  ]
-  ++ lib.optionals (!isImage) [ ./hardware.nix ];
+      (import ../../users/lortane/home-manager.nix {
+        inherit inputs homeModules;
+        hostHomeModules = [../../users/lortane/home/hosts/wes];
+      })
+    ]
+    ++ lib.optionals (!isImage) [./hardware.nix];
 
   bootloader.systemd.enable = true;
   powerManagement.cpuFreqGovernor = "performance";

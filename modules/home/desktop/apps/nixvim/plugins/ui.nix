@@ -41,21 +41,10 @@
       };
     };
 
-    which-key = {
-      enable = true;
-    };
-
-    gitsigns = {
-      enable = true;
-    };
-
-    fugitive = {
-      enable = true;
-    };
-
-    todo-comments = {
-      enable = true;
-    };
+    which-key.enable = true;
+    gitsigns.enable = true;
+    fugitive.enable = true;
+    todo-comments.enable = true;
 
     bufferline = {
       enable = true;
@@ -67,11 +56,11 @@
         show_buffer_close_icons = false;
         diagnostics = "nvim_lsp";
         offsets = [
-          { filetype = "neo-tree"; }
-          { text = "File Explorer"; }
-          { highlight = "Directory"; }
-          { text_align = "center"; }
-          { separator = true; }
+          {filetype = "neo-tree";}
+          {text = "File Explorer";}
+          {highlight = "Directory";}
+          {text_align = "center";}
+          {separator = true;}
         ];
       };
     };
@@ -85,8 +74,6 @@
       enable = true;
       settings.indent.enable = true;
     };
-    # NOTE: This is annoying using the corne keyboard
-    nvim-autopairs.enable = false;
 
     indent-blankline = {
       enable = true;

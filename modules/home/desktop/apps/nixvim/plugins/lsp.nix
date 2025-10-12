@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   plugins.conform-nvim = {
     enable = true;
     settings = {
@@ -18,22 +17,10 @@
           "shellcheck"
           "shfmt"
         ];
-        python = [
-          "isort"
-          "black"
-        ];
-        docker = [ "hadolint" ];
-        css = [ "prettier" ];
-        html = [ "prettier" ];
-        json = [ "prettier" ];
-        lua = [ "stylua" ];
-        markdown = [ "prettier" ];
-        nix = [ "alejandra" ];
-        #ruby = ["rubyfmt"];
-        terraform = [ "tofu_fmt" ];
-        tf = [ "tofu_fmt" ];
-        #yaml = ["yamlfmt"]; # NOTE: Does not accept empty lines after keys
-        yaml = [ "prettier" ];
+        json = ["prettier"];
+        lua = ["stylua"];
+        markdown = ["prettier"];
+        nix = ["alejandra"];
       };
     };
   };
@@ -138,7 +125,7 @@
         debounce = 150;
       };
       sources = [
-        { name = "path"; }
+        {name = "path";}
         {
           name = "nvim_lsp";
           keywordLength = 1;
@@ -268,7 +255,7 @@
   plugins.dap.enable = true;
   plugins.trouble = {
     enable = true;
-    settings = { };
+    settings = {};
   };
   plugins.none-ls = {
     enable = true;
@@ -291,20 +278,20 @@
   plugins.lint = {
     enable = true;
     lintersByFt = {
-      text = [ "vale" ];
-      json = [ "jsonlint" ];
-      markdown = [ "prettier" ];
+      text = ["vale"];
+      json = ["jsonlint"];
+      markdown = ["prettier"];
       #ruby = ["rubyfmt"];
-      dockerfile = [ "hadolint" ];
-      terraform = [ "tofu_fmt" ];
-      tf = [ "tofu_fmt" ];
-      bash = [ "shellcheck" ];
-      yaml = [ "yamlfmt" ];
-      nix = [ "alejandra" ];
-      go = [ "golangci-lint" ];
-      python = [ "flake8" ];
-      haskell = [ "hlint" ];
-      lua = [ "selene" ];
+      dockerfile = ["hadolint"];
+      terraform = ["tofu_fmt"];
+      tf = ["tofu_fmt"];
+      bash = ["shellcheck"];
+      yaml = ["yamlfmt"];
+      nix = ["alejandra"];
+      go = ["golangci-lint"];
+      python = ["flake8"];
+      haskell = ["hlint"];
+      lua = ["selene"];
     };
     linters = {
       hadolint = {

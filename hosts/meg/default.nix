@@ -7,27 +7,26 @@
   nixosModules,
   isImage ? false,
   ...
-}:
+}: {
+  imports =
+    [
+      ./networking.nix
+      ./secrets
 
-{
-  imports = [
-    ./networking.nix
-    ./secrets
+      nixosModules.bootloader
+      nixosModules.desktop
+      nixosModules.common
 
-    nixosModules.bootloader
-    nixosModules.desktop
-    nixosModules.common
+      (import ../../users/lortane {
+        inherit inputs nixosModules pkgs;
+      })
 
-    (import ../../users/lortane {
-      inherit inputs nixosModules pkgs;
-    })
-
-    (import ../../users/lortane/home-manager.nix {
-      inherit inputs homeModules;
-      hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
-    })
-  ]
-  ++ lib.optionals (!isImage) [ ./hardware.nix ];
+      (import ../../users/lortane/home-manager.nix {
+        inherit inputs homeModules;
+        hostHomeModules = [../../users/lortane/home/hosts/jack];
+      })
+    ]
+    ++ lib.optionals (!isImage) [./hardware.nix];
 
   bootloader.systemd.enable = true;
   virtualisation.vmware.guest.enable = true;

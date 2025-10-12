@@ -31,68 +31,67 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      agenix-rekey,
-      home-manager,
-      nixos-generators,
-      ...
-    }@inputs:
-    let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
-      homeModules = import ./modules/home;
-      nixosModules = import ./modules/nixos;
-
-      # Helper function to create NixOS configurations
-      mkNixOSConfig =
-        hostPath:
-        lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = {
-            inherit inputs homeModules nixosModules;
-            isImage = false;
-          };
-          modules = [ hostPath ];
-        };
-
-      hosts = {
-        boris = ./hosts/boris;
-        jack  = ./hosts/jack;
-        meg   = ./hosts/meg;
-        wes   = ./hosts/wes;
-        wsl   = ./hosts/wsl;
-      };
-    in
-    {
-      packages.x86_64-linux = {
-        vmware = nixos-generators.nixosGenerate {
-          inherit system pkgs;
-          specialArgs = {
-            inherit inputs homeModules nixosModules;
-            isImage = true;
-          };
-          modules = [ ./hosts/wes ];
-          format = "vmware";
-        };
-      };
-
-      nixosConfigurations = lib.mapAttrs (hostName: hostPath:
-        mkNixOSConfig hostPath
-      ) hosts;
-
-      agenix-rekey = agenix-rekey.configure {
-        userFlake = self;
-        nixosConfigurations = self.nixosConfigurations;
+  outputs = {
+    self,
+    nixpkgs,
+    agenix-rekey,
+    home-manager,
+    nixos-generators,
+    ...
+  } @ inputs: let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
       };
     };
+
+    homeModules = import ./modules/home;
+    nixosModules = import ./modules/nixos;
+
+    # Helper function to create NixOS configurations
+    mkNixOSConfig = hostPath:
+      lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs homeModules nixosModules;
+          isImage = false;
+        };
+        modules = [hostPath];
+      };
+
+    hosts = {
+      boris = ./hosts/boris;
+      jack = ./hosts/jack;
+      meg = ./hosts/meg;
+      wes = ./hosts/wes;
+      wsl = ./hosts/wsl;
+    };
+  in {
+    packages.x86_64-linux = {
+      vmware = nixos-generators.nixosGenerate {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs homeModules nixosModules;
+          isImage = true;
+        };
+        modules = [./hosts/wes];
+        format = "vmware";
+      };
+    };
+
+    nixosConfigurations =
+      lib.mapAttrs (
+        hostName: hostPath:
+          mkNixOSConfig hostPath
+      )
+      hosts;
+
+    agenix-rekey = agenix-rekey.configure {
+      userFlake = self;
+      nixosConfigurations = self.nixosConfigurations;
+    };
+  };
 }

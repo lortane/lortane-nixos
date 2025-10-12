@@ -3,15 +3,15 @@
   lib,
   pkgs,
   ...
-}:
+}: {
+  options.cli-tools.enable =
+    lib.mkEnableOption "CLI tools environment"
+    // {
+      description = "Enable my curated collection of command-line tools";
+      default = true;
+    };
 
-{
-  options.cli-tools.enable = lib.mkEnableOption "CLI tools environment" // {
-    description = "Enable my curated collection of command-line tools";
-    default = true;
-  };
-
-  imports = [ ./zsh.nix ];
+  imports = [./zsh.nix];
 
   config = lib.mkIf config.cli-tools.enable {
     # Fuzzy finder and navigation
