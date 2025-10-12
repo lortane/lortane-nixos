@@ -20,6 +20,8 @@ let
         ./wezterm
       ];
       packages = with pkgs; [
+        xclip
+        xsel
         libnotify # desktop notifications
         nautilus
         poweralertd # power event notifications
