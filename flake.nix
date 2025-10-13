@@ -9,67 +9,89 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+    agenix-rekey.inputs.nixpkgs.follows = "nixpkgs";
+
     hypr-contrib.url = "github:hyprwm/contrib";
     hypr-contrib.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    spicetify-nix.url = "github:gerg-l/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
-    let
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+  outputs = {
+    self,
+    nixpkgs,
+    agenix-rekey,
+    home-manager,
+    nixos-generators,
+    ...
+  } @ inputs: let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+    };
 
-      # Helper function to create NixOS configurations
-      mkNixOSConfig =
-        hostPath:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            hostPath
-          ];
+    homeModules = import ./modules/home;
+    nixosModules = import ./modules/nixos;
+
+    # Helper function to create NixOS configurations
+    mkNixOSConfig = hostPath:
+      lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs homeModules nixosModules;
+          isImage = false;
         };
-    in
-    {
-      #packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-      #overlays = import ./overlays { inherit inputs; };
-
-      nixosConfigurations = {
-        boris = mkNixOSConfig ./hosts/boris;
-        jack = mkNixOSConfig ./hosts/jack;
-        wes = mkNixOSConfig ./hosts/wes;
-        wsl = mkNixOSConfig ./hosts/wsl;
+        modules = [hostPath];
       };
 
-      checks = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          flakePkgs = self.packages.${system};
-        in
-        {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
-            };
-          };
-          build-packages = pkgs.linkFarm "flake-packages-${system}" flakePkgs;
-          # deploy-checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-        }
-      );
+    hosts = {
+      boris = ./hosts/boris;
+      jack = ./hosts/jack;
+      meg = ./hosts/meg;
+      wes = ./hosts/wes;
+      wsl = ./hosts/wsl;
     };
+  in {
+    packages.x86_64-linux = {
+      vmware = nixos-generators.nixosGenerate {
+        inherit system pkgs;
+        specialArgs = {
+          inherit inputs homeModules nixosModules;
+          isImage = true;
+        };
+        modules = [./hosts/wes];
+        format = "vmware";
+      };
+    };
+
+    nixosConfigurations =
+      lib.mapAttrs (
+        hostName: hostPath:
+          mkNixOSConfig hostPath
+      )
+      hosts;
+
+    agenix-rekey = agenix-rekey.configure {
+      userFlake = self;
+      nixosConfigurations = self.nixosConfigurations;
+    };
+  };
 }

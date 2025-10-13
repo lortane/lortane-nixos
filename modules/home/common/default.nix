@@ -1,7 +1,10 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
+    ./packages.nix
     ./cli-tools.nix
   ];
 

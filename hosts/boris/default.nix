@@ -1,22 +1,23 @@
 {
-  outputs,
+  inputs,
   config,
+  homeModules,
+  nixosModules,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
-    ./boot.nix
     ./ddns.nix
     ./hardware.nix
     ./networking.nix
     ./secrets
     ./wireguard.nix
 
-    ../../users/lortane
+    nixosModules.common
 
-    outputs.nixosModules.common
+    (import ../../users/lortane {
+      inherit nixosModules;
+    })
   ];
 
   # So I can deploy remotely (review if can be done better)

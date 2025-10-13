@@ -1,28 +1,21 @@
 {
   inputs,
+  pkgs,
   nixosModules,
-  hostHomeModules ? [ ],
+  extraGroups ? [],
   ...
-}:
+}: {
+  imports = [
+    nixosModules.normal-users
 
-let
-  userSpecificModule = {
-    normalUsers = {
-      lortane = {
-        extraGroups = [
-          "wheel"
-        ];
-        sshKeyFiles = (import ./keys.nix).keyPaths;
-      };
-    };
+    inputs.stylix.nixosModules.stylix
+  ];
 
-    home-manager.users."lortane" = {
-      imports = [ ./home ] ++ hostHomeModules;
-    };
+  normalUsers.lortane = {
+    extraGroups = ["wheel"] ++ extraGroups;
+    sshKeyFiles = (import ./keys.nix).keyPaths;
   };
-in
-[
-  userSpecificModule
-  nixosModules.normal-users
-  inputs.home-manager.nixosModules.home-manager
-]
+
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+}

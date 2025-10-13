@@ -1,5 +1,20 @@
-{ outputs, ... }:
+{...}: let
+  homeModules = import ../../../../../modules/home;
+in {
+  imports = [
+    homeModules.desktop
+  ];
 
-{
-  imports = [ ../../hyprland ];
+  desktop = {
+    enable = true;
+    windowManager = "awesome";
+
+    starship.enable = true;
+
+    appBundles = {
+      productivity = true;
+      development = true;
+      media = true;
+    };
+  };
 }

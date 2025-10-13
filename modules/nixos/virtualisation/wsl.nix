@@ -5,14 +5,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.virtualisation.wsl;
-in
-{
-
+in {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
   ];
@@ -34,7 +29,7 @@ in
 
     extraPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = "Additional packages to install for WSL";
     };
 
@@ -66,8 +61,7 @@ in
     programs.nix-ld.enable = true;
 
     # System packages useful for WSL
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         curl
         file

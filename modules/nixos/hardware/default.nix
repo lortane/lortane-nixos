@@ -1,3 +1,6 @@
 {
-  imports = [ ./razer.nix ];
+  imports = [
+    ./intel-gpu.nix
+    ./razer.nix
+  ];
 }

@@ -1,10 +1,20 @@
-{ ... }:
-
-let
+{...}: let
   homeModules = import ../../../../../modules/home;
-in
-{
+in {
   imports = [
-    homeModules.awesomewm
+    homeModules.desktop
   ];
+
+  desktop = {
+    enable = true;
+    windowManager = "awesome";
+
+    starship.enable = true;
+
+    appBundles = {
+      productivity = true;
+      development = true;
+      media = true;
+    };
+  };
 }

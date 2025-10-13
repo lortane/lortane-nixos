@@ -1,32 +1,36 @@
 {
+  lib,
+  pkgs,
   inputs,
   config,
-  pkgs,
+  homeModules,
+  nixosModules,
+  isImage ? false,
   ...
-}:
+}: {
+  imports =
+    [
+      ./networking.nix
+      ./secrets
 
-let
-  nixosModules = import ../../modules/nixos;
-in
-{
-  imports = [
-    ./boot.nix
-    ./hardware.nix
-    ./networking.nix
+      nixosModules.bootloader
+      nixosModules.desktop
+      nixosModules.common
 
-    nixosModules.audio
-    nixosModules.awesomewm
-    nixosModules.common
-    nixosModules.hardware
-  ]
-  ++ (import ../../users/lortane {
-    inherit inputs nixosModules pkgs;
-    hostHomeModules = [ ../../users/lortane/home/hosts/jack ];
-  });
+      (import ../../users/lortane {
+        inherit inputs nixosModules pkgs;
+      })
 
-  virtualisation.vmware.guest.enable = true;
+      (import ../../users/lortane/home-manager.nix {
+        inherit inputs homeModules;
+        hostHomeModules = [../../users/lortane/home/hosts/jack];
+      })
+    ]
+    ++ lib.optionals (!isImage) [./hardware.nix];
 
-  hardware.razer.enable = true;
+  bootloader.systemd.enable = true;
+  services.qemuGuest.enable = true;
+  desktop.windowManager = "awesome";
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

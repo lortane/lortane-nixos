@@ -3,21 +3,20 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.networking.wg-server;
 
   mkPeer = name: {
     inherit (cfg.peers.${name}) publicKey presharedKeyFile;
-    allowedIPs = [ "${cfg.peers.${name}.allowedIP}/${toString cfg.peerAddressMask}" ];
+    allowedIPs = ["${cfg.peers.${name}.allowedIP}/${toString cfg.peerAddressMask}"];
     persistentKeepalive = mkDefault 25;
   };
   mkPeers = names: map mkPeer names;
 
   iptables = "${pkgs.iptables}/bin/iptables";
 
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkDefault
     mkEnableOption
@@ -25,8 +24,7 @@ let
     mkOption
     types
     ;
-in
-{
+in {
   options.networking.wg-server = {
     enable = mkEnableOption "Enable VPN server";
     openFirewall = mkOption {
@@ -89,7 +87,7 @@ in
           };
         }
       );
-      default = { };
+      default = {};
       description = "VPN peers configuration";
       example = literalExpression ''
         {
@@ -112,10 +110,10 @@ in
       nat = {
         enable = true;
         externalInterface = cfg.externalInterface;
-        internalInterfaces = [ cfg.internalInterface ];
+        internalInterfaces = [cfg.internalInterface];
       };
       firewall = mkIf cfg.openFirewall {
-        allowedTCPPorts = [ 53 ];
+        allowedTCPPorts = [53];
         allowedUDPPorts = [
           53
           cfg.port
@@ -123,7 +121,7 @@ in
       };
       wg-quick.interfaces = {
         "${cfg.internalInterface}" = {
-          address = [ "${cfg.serverAddress}/${toString cfg.subnetMask}" ];
+          address = ["${cfg.serverAddress}/${toString cfg.subnetMask}"];
           listenPort = cfg.port;
           privateKeyFile = cfg.privateKeyFile;
           postUp = ''

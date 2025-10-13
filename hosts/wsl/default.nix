@@ -1,23 +1,25 @@
 {
+  pkgs,
   inputs,
   config,
-  pkgs,
+  nixosModules,
+  homeModules,
   ...
-}:
-
-let
-  nixosModules = import ../../modules/nixos;
-in
-{
-  nixpkgs.hostPlatform = builtins.currentSystem;
-
+}: {
   imports = [
     ./networking.nix
 
     nixosModules.common
     nixosModules.virtualisation
-  ]
-  ++ (import ../../users/lortane { inherit inputs nixosModules pkgs; });
+
+    (import ../../users/lortane {
+      inherit inputs nixosModules pkgs;
+    })
+
+    (import ../../users/lortane/home-manager.nix {
+      inherit inputs homeModules;
+    })
+  ];
 
   virtualisation.wsl = {
     enable = true;

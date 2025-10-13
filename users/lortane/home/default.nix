@@ -1,14 +1,12 @@
-{ config, ... }:
-
-let
-  homeModules = import ../../../modules/home;
-in
 {
+  config,
+  homeModules,
+  ...
+}: {
   imports = [
     ./git.nix
     ./home.nix
 
     homeModules.common
   ];
-
 }

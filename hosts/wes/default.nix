@@ -1,39 +1,38 @@
 {
-  inputs,
-  config,
+  lib,
   pkgs,
+  config,
+  inputs,
+  homeModules,
+  nixosModules,
+  isImage ? false,
   ...
-}:
+}: {
+  imports =
+    [
+      ./networking.nix
 
-let
-  nixosModules = import ../../modules/nixos;
-in
-{
-  imports = [
-    ./boot.nix
-    ./hardware.nix
-    ./networking.nix
+      nixosModules.bootloader
+      nixosModules.desktop
+      nixosModules.common
+      nixosModules.hardware
 
-    nixosModules.audio
-    nixosModules.common
-    nixosModules.hardware
-    nixosModules.hyprland
-  ]
-  ++ (import ../../users/lortane {
-    inherit inputs nixosModules pkgs;
-    hostModules = [ ../../users/lortane/home/hosts/wes ];
-  });
+      (import ../../users/lortane {
+        inherit inputs nixosModules pkgs;
+      })
 
+      (import ../../users/lortane/home-manager.nix {
+        inherit inputs homeModules;
+        hostHomeModules = [../../users/lortane/home/hosts/wes];
+      })
+    ]
+    ++ lib.optionals (!isImage) [./hardware.nix];
+
+  bootloader.systemd.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
 
-  services.xserver.videoDrivers = [ "modesetting" ];
-  # boot.initrd.kernelModules = [ "xe" ];
+  desktop.windowManager = "awesome";
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vpl-gpu-rt
-    ];
-  };
+  hardware.intel-gpu.enable = true;
+  hardware.razer.enable = true;
 }
