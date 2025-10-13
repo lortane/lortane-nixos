@@ -7,25 +7,28 @@
   inherit (lib) mkIf;
   cfg = config.desktop.starship;
 
+  # Access Stylix colors - guaranteed to exist since Stylix is mandatory
+  s = config.lib.stylix.colors.withHashtag;
+
   defaultSettings = {
     add_newline = false;
 
     directory = {
-      format = "[ ](bold #89b4fa)[ $path ]($style)";
-      style = "bold #b4befe";
+      format = "[ ](bold ${s.base0D})[ $path ]($style)";
+      style = "bold ${s.base0E}";
       truncation_length = 0;
       truncate_to_repo = false;
     };
 
     character = {
-      success_symbol = "[ ](bold #89b4fa)[ ➜](bold green)";
-      error_symbol = "[ ](bold #89b4fa)[ ➜](bold red)";
+      success_symbol = "[ ](bold ${s.base0D})[ ➜](bold ${s.base0B})";
+      error_symbol = "[ ](bold ${s.base0D})[ ➜](bold ${s.base08})";
     };
 
     cmd_duration = {
       format = "[󰔛 $duration]($style)";
       disabled = false;
-      style = "bg:none fg:#f9e2af";
+      style = "bg:none fg:${s.base0A}";
       show_notifications = false;
       min_time_to_notify = 60000;
     };
