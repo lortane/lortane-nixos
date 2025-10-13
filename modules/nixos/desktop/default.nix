@@ -28,8 +28,25 @@ in {
 
   imports =
     [
-      ./audio
-      ./stylix
+      ./audio.nix
+      ./stylix.nix
     ]
     ++ allWmImports;
+
+  config = {
+    fonts = {
+      packages = with pkgs; [
+        nerd-fonts.terminess-ttf
+      ];
+
+      fontconfig = {
+        enable = true;
+        defaultFonts = {
+          monospace = ["Terminess Nerd Font"];
+          sansSerif = ["Terminess Nerd Font"];
+          serif = ["Terminess Nerd Font"];
+        };
+      };
+    };
+  };
 }
