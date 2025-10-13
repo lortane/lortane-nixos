@@ -26,5 +26,10 @@ in {
     };
   };
 
-  imports = allWmImports;
+  imports =
+    [
+      ./audio
+      ./stylix
+    ]
+    ++ allWmImports;
 }

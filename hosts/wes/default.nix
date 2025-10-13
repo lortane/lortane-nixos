@@ -13,7 +13,6 @@
       ./networking.nix
 
       nixosModules.bootloader
-      nixosModules.desktop
       nixosModules.common
       nixosModules.hardware
 
@@ -30,8 +29,6 @@
 
   bootloader.systemd.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
-
-  desktop.windowManager = "awesome";
 
   hardware.intel-gpu.enable = true;
   hardware.razer.enable = true;

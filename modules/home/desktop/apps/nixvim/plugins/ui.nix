@@ -47,7 +47,7 @@
     todo-comments.enable = true;
 
     bufferline = {
-      enable = true;
+      enable = false;
       settings.options = {
         buffer_close_icon = null;
         close_icon = null;
@@ -66,7 +66,7 @@
     };
 
     toggleterm = {
-      enable = true;
+      enable = false;
       settings.float_opts.border = "curved";
     };
 
@@ -105,7 +105,7 @@
     };
 
     image.enable = true;
-    noice.enable = true;
+    noice.enable = false;
     web-devicons.enable = true;
   };
 }

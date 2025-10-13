@@ -17,6 +17,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    wiremix
     pulseaudioFull
   ];
 }

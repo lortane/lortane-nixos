@@ -64,5 +64,7 @@ in {
       DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
       BROWSER = "${pkgs.librewolf}/bin/librewolf";
     };
+
+    stylix.targets.librewolf.profileNames = ["default"];
   };
 }
