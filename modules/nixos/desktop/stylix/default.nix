@@ -1,4 +1,3 @@
-# modules/nixos/desktop/stylix/default.nix
 {
   lib,
   pkgs,
@@ -13,13 +12,29 @@
     stylix = {
       enable = true;
 
-      # Default configuration
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
       polarity = "dark";
+      fonts = {
+        monospace = {
+          package = pkgs.nerd-fonts.terminess-ttf;
+          name = "Terminess Nerd Font";
+        };
 
-      # Set other defaults as needed
-      # image = ./default-wallpaper.jpg;
-      # fonts = { ... };
+        sansSerif = {
+          package = pkgs.nerd-fonts.terminess-ttf;
+          name = "Terminess Nerd Font";
+        };
+
+        serif = {
+          package = pkgs.nerd-fonts.terminess-ttf;
+          name = "Terminess Nerd Font";
+        };
+
+        sizes = {
+          terminal = 12;
+          applications = 11;
+        };
+      };
     };
   };
 }
