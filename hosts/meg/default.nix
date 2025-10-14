@@ -20,10 +20,10 @@
         inherit inputs nixosModules pkgs;
       })
 
-      (import ../../users/lortane/home-manager.nix {
-        inherit inputs homeModules;
-        hostHomeModules = [../../users/lortane/home/hosts/jack];
-      })
+      # (import ../../users/lortane/home-manager.nix {
+      #   inherit inputs homeModules;
+      #   hostHomeModules = [../../users/lortane/home/hosts/jack];
+      # })
     ]
     ++ lib.optionals (!isImage) [./hardware.nix];
 
