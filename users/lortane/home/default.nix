@@ -1,9 +1,10 @@
 {
+lib,
   config,
   homeModules,
   ...
 }: let
-  homeModules = import ../../../modules/home;
+  homeModules = import (lib.custom.relativeToRoot "modules/home");
 in {
   imports = [
     ./git.nix

@@ -1,5 +1,5 @@
-{...}: let
-  homeModules = import ../../../../../modules/home;
+{lib, ...}: let
+  homeModules = import (lib.custom.relativeToRoot "modules/home");
 in {
   imports = [
     homeModules.desktop

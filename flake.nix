@@ -39,7 +39,10 @@
     nixos-generators,
     ...
   } @ inputs: let
-    lib = nixpkgs.lib;
+    # ========== Extend lib with lib.custom ==========
+    # NOTE: This approach allows lib.custom to propagate into hm
+    # see: https://github.com/nix-community/home-manager/pull/3454
+    lib = nixpkgs.lib.extend (self: super: {custom = import ./lib {inherit (nixpkgs) lib;};});
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
