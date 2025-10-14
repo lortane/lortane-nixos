@@ -10,6 +10,8 @@
 }: {
   imports =
     [
+      ./networking.nix
+
       nixosModules.bootloader
       nixosModules.desktop
       nixosModules.common
