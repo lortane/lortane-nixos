@@ -17,6 +17,6 @@
 
   desktop = {
     enable = true;
-    windowManager = "awesome";
+    windowManager = "i3";
   };
 }

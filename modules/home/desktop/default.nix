@@ -9,6 +9,7 @@
   # Map of available WMs - import ALL unconditionally
   wmModules = {
     awesome = ./wm/awesome;
+    i3 = ./wm/i3;
   };
 
   # Import ALL WM modules
@@ -25,7 +26,7 @@ in {
 
     windowManager = lib.mkOption {
       type = lib.types.enum (["none"] ++ (builtins.attrNames wmModules));
-      default = "awesome";
+      default = "i3";
       description = "Select the window manager to configure for home";
     };
 

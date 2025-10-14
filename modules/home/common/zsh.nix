@@ -2,9 +2,7 @@
   config,
   lib,
   ...
-}: let
-  cfg = config.cli-tools.enable or false;
-in {
+}: {
   programs.zsh = {
     enable = true;
 
@@ -12,16 +10,14 @@ in {
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
 
-      ${lib.optionalString cfg ''
-        alias cd="z"
-        alias tt="gtrash put";
+      alias cd="z"
+      alias tt="gtrash put";
 
-        # Modern file listing (eza)
-        alias l="eza --icons -a --group-directories-first -1"
-        alias ls="eza --icons -a --group-directories-first -1 --no-user --long"
-        alias ll="eza --icons -a --group-directories-first -1 --no-user --long"
-        alias tree="eza --icons --tree --group-directories-first"
-      ''}
+      # Modern file listing (eza)
+      alias l="eza --icons -a --group-directories-first -1"
+      alias ls="eza --icons -a --group-directories-first -1 --no-user --long"
+      alias ll="eza --icons -a --group-directories-first -1 --no-user --long"
+      alias tree="eza --icons --tree --group-directories-first"
     '';
 
     shellAliases = {

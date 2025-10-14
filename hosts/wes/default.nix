@@ -22,7 +22,7 @@
 
       (import ../../users/lortane/home-manager.nix {
         inherit inputs homeModules;
-        hostHomeModules = [../../users/lortane/home/hosts/wes];
+        # hostHomeModules = [../../users/lortane/home/hosts/wes];
       })
     ]
     ++ lib.optionals (!isImage) [./hardware.nix];
