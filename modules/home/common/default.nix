@@ -4,8 +4,9 @@
   ...
 }: {
   imports = [
-    ./packages.nix
     ./cli-tools.nix
+    ./packages.nix
+    ./zsh.nix
   ];
 
   programs.home-manager.enable = true;
