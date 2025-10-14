@@ -10,9 +10,6 @@
 }: {
   imports =
     [
-      ./networking.nix
-      ./secrets
-
       nixosModules.bootloader
       nixosModules.desktop
       nixosModules.common
@@ -30,7 +27,11 @@
 
   bootloader.systemd.enable = true;
   services.qemuGuest.enable = true;
-  desktop.windowManager = "awesome";
+
+  desktop = {
+    enable = true;
+    windowManager = "i3";
+  };
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

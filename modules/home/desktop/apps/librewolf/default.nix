@@ -66,6 +66,6 @@ in {
     };
 
     stylix.targets.librewolf.profileNames = ["default"];
-    stylix.targets.librewolf.colorTheme.enable = true;
+    #stylix.targets.librewolf.colorTheme.enable = true;
   };
 }

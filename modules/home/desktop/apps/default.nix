@@ -18,6 +18,7 @@
         ./wezterm
       ];
       packages = with pkgs; [
+        btop
         xclip
         xsel
         libnotify # desktop notifications

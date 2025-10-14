@@ -35,7 +35,7 @@ in {
     '';
 
     services.xserver = {
-      enable = true;   
+      enable = true;
       desktopManager = {
         xterm.enable = false;
         xfce = {

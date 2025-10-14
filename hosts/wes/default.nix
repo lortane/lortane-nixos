@@ -14,10 +14,13 @@
 
       nixosModules.bootloader
       nixosModules.common
+      nixosModules.desktop
       nixosModules.hardware
+      nixosModules.virtualisation
 
       (import ../../users/lortane {
         inherit inputs nixosModules pkgs;
+        extraGroups = ["libvirtd"];
       })
 
       (import ../../users/lortane/home-manager.nix {
@@ -29,6 +32,13 @@
 
   bootloader.systemd.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
+
+  virtualisation.qemuHost.enable = true;
+
+  desktop = {
+    enable = true;
+    windowManager = "awesome";
+  };
 
   hardware.intel-gpu.enable = true;
   hardware.razer.enable = true;
