@@ -14,7 +14,6 @@
       ./secrets
 
       nixosModules.bootloader
-      nixosModules.desktop
       nixosModules.common
 
       (import ../../users/lortane {
@@ -30,7 +29,6 @@
 
   bootloader.systemd.enable = true;
   virtualisation.vmware.guest.enable = true;
-  desktop.windowManager = "awesome";
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;

@@ -13,16 +13,18 @@
   defaultSettings = {
     add_newline = false;
 
+    format = "$directory$fill$all$character";
+
     directory = {
-      format = "[ ](bold ${s.base0D})[ $path ]($style)";
-      style = "bold ${s.base0E}";
+      format = "[ ](bold ${s.base0B})[ $path ]($style)";
+      style = "bold ${s.base0B}";
       truncation_length = 0;
       truncate_to_repo = false;
     };
 
     character = {
-      success_symbol = "[ ](bold ${s.base0D})[ ➜](bold ${s.base0B})";
-      error_symbol = "[ ](bold ${s.base0D})[ ➜](bold ${s.base08})";
+      success_symbol = "[➜](bold ${s.base0B})";
+      error_symbol = "[➜](bold ${s.base08})";
     };
 
     cmd_duration = {
