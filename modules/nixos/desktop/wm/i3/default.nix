@@ -10,28 +10,18 @@
 in {
   config = mkIf (enableFor config) {
     environment.systemPackages = with pkgs; [
-      tuigreet
       dbus
       xorg.xorgserver
       xorg.xinit
       xorg.xauth
     ];
 
-    environment.etc."greetd/sessions/i3-x11.sh".text = ''
-      #!/bin/sh
-
-      export XDG_SESSION_TYPE=x11
-
-      # ensure we run i3 under a per-session DBus (notifications, systemd user units, etc.)
-      dbus-run-session xfce+i3
-    '';
-
-    environment.etc."greetd/sessions/i3.desktop".text = ''
+    # Create the X session desktop file
+    environment.etc."greetd/sessions/xfce-i3.desktop".text = ''
       [Desktop Entry]
-      Name=i3 (X11)
-      Exec=/etc/greetd/sessions/i3-x11.sh
-      Type=Application
-      NoTerminal=true
+      Name=XFCE+i3
+      Exec=dbus-run-session xfce4-session
+      Type=XSession
     '';
 
     services.xserver = {
@@ -47,11 +37,23 @@ in {
       windowManager.i3.enable = true;
       displayManager.lightdm.enable = false;
     };
-    services.greetd = {
-      enable = true;
-      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --sessions /etc/greetd/sessions";
+
+    # This tells XFCE to use i3 as the window manager
+    environment.sessionVariables = {
+      XFCE4_SESSION_WM = "${pkgs.i3}/bin/i3";
     };
 
-    # services.displayManager.defaultSession = "xfce+i3";
+    services.greetd = {
+      enable = true;
+      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --xsessions /etc/greetd/sessions";
+    };
+
+    systemd.services.greetd = {
+      enable = true;
+      unitConfig = {
+        WantedBy = "graphical.target";
+        After = "multi-user.target";
+      };
+    };
   };
 }
