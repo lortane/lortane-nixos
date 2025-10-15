@@ -17,30 +17,17 @@ in {
     ];
 
     # Create the X session desktop file
-    environment.etc."greetd/sessions/xfce-i3.desktop".text = ''
+    environment.etc."greetd/sessions/i3.desktop".text = ''
       [Desktop Entry]
-      Name=XFCE+i3
-      Exec=dbus-run-session xfce4-session
+      Name=i3
+      Exec=${pkgs.i3}/bin/i3
       Type=XSession
     '';
 
     services.xserver = {
       enable = true;
-      desktopManager = {
-        xterm.enable = false;
-        xfce = {
-          enable = true;
-          noDesktop = true;
-          enableXfwm = false;
-        };
-      };
       windowManager.i3.enable = true;
       displayManager.lightdm.enable = false;
-    };
-
-    # This tells XFCE to use i3 as the window manager
-    environment.sessionVariables = {
-      XFCE4_SESSION_WM = "${pkgs.i3}/bin/i3";
     };
 
     services.greetd = {

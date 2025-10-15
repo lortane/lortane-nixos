@@ -13,8 +13,8 @@
       ./networking.nix
 
       nixosModules.bootloader
-      nixosModules.desktop
       nixosModules.common
+      nixosModules.desktop
 
       (import ../../users/lortane {
         inherit inputs nixosModules pkgs;
