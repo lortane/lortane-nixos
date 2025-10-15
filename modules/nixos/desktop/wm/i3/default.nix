@@ -20,14 +20,28 @@ in {
     environment.etc."greetd/sessions/i3.desktop".text = ''
       [Desktop Entry]
       Name=i3
-      Exec=${pkgs.i3}/bin/i3
+      Exec=/etc/greetd/i3-wrapper.sh
       Type=XSession
     '';
+
+    environment.etc."greetd/i3-wrapper.sh" = {
+      text = ''
+        #!/bin/sh
+        export DISPLAY=:0
+        export XAUTHORITY=$HOME/.Xauthority
+        export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+
+        # Start i3
+        exec ${pkgs.i3}/bin/i3
+      '';
+      mode = "0755";
+    };
 
     services.xserver = {
       enable = true;
       windowManager.i3.enable = true;
       displayManager.lightdm.enable = false;
+      displayManager.startx.enable = true;
     };
 
     services.greetd = {

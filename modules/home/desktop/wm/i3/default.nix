@@ -12,6 +12,9 @@ in {
 
       config = rec {
         modifier = "Mod4";
+
+        terminal = "wezterm";
+        menu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
         bars = [];
 
         window.border = 0;
@@ -21,18 +24,16 @@ in {
           outer = 5;
         };
 
-        # keybindings = lib.mkOptionDefault {
-        #   "XF86AudioMute" = "exec amixer set Master toggle";
-        #   "XF86AudioLowerVolume" = "exec amixer set Master 4%-";
-        #   "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
-        #   "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
-        #   "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
-        #   "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-        #   "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi drun -show drun";
-        #   "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
-        #   "${modifier}+b" = "exec ${pkgs.brave}/bin/brave";
-        #   "${modifier}+Shift+x" = "exec systemctl suspend";
-        # };
+        keybindings = lib.mkOptionDefault {
+          "XF86AudioMute" = "exec amixer set Master toggle";
+          "XF86AudioLowerVolume" = "exec amixer set Master 4%-";
+          "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
+          "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
+          "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
+          "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
+          #"${modifier}+b" = "exec ${pkgs.brave}/bin/brave";
+          "${modifier}+Shift+x" = "exec systemctl suspend";
+        };
 
         # startup = [
         #   {

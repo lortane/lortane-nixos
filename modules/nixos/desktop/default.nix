@@ -35,6 +35,8 @@ in {
     ++ allWmImports;
 
   config = {
+    services.libinput.enable = true;
+
     fonts = {
       packages = with pkgs; [
         nerd-fonts.terminess-ttf
