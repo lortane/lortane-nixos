@@ -111,7 +111,7 @@ in {
         type = "internal/pulseaudio";
         use-ui-max = false;
         format-volume = "<ramp-volume> <label-volume>";
-        label-muted = "󰖁  <label-volume>";
+        label-muted = "󰖁 %percentage%%";
         label-muted-foreground = "${colors.base03}";
 
         ramp-volume-0 = "󰕿";
