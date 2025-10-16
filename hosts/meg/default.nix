@@ -33,7 +33,7 @@
 
   desktop = {
     enable = true;
-    windowManager = "i3";
+    windowManager = "awesome";
   };
 
   # So I can deploy remotely (review if can be done better)

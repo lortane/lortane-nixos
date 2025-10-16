@@ -11,6 +11,8 @@ in {
   ];
 
   config = lib.mkIf (cfg.enable && cfg.windowManager == "i3") {
+    programs.rofi.enable = true;
+    
     xsession.windowManager.i3 = {
       enable = true;
 
@@ -41,28 +43,6 @@ in {
         keybindings = lib.mkOptionDefault {
           "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
           "${modifier}+q" = "kill";
-
-          # Vim-like focus
-          "${modifier}+h" = "focus left";
-          "${modifier}+j" = "focus down";
-          "${modifier}+k" = "focus up";
-          "${modifier}+l" = "focus right";
-
-          # Vim-like window movement
-          "${modifier}+Shift+h" = "move left";
-          "${modifier}+Shift+j" = "move down";
-          "${modifier}+Shift+k" = "move up";
-          "${modifier}+Shift+l" = "move right";
-
-          # Reload and restart i3
-          "${modifier}+Shift+c" = "reload";
-          "${modifier}+Shift+r" = "restart";
-
-          # Window management
-          "${modifier}+f" = "fullscreen toggle";
-          "${modifier}+s" = "layout stacking";
-          "${modifier}+w" = "layout tabbed";
-          "${modifier}+e" = "layout toggle split";
 
           # Workspaces
           "${modifier}+1" = "workspace number 1";

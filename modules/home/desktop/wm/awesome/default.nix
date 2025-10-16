@@ -13,7 +13,6 @@ in {
       enable = true;
     };
 
-    home.file.".xinitrc".text = "exec ${pkgs.awesome}/bin/awesome";
     programs.rofi.enable = true;
     #services.picom.enable = true;
 
