@@ -25,7 +25,6 @@ in {
     '';
 
     settings = {
-      # Global settings
       "settings" = {
         screenchange-reload = true;
         compositing = "background";
@@ -35,9 +34,11 @@ in {
       "bar/main" = {
         # Position
         width = "100%";
-        height = "23pt";
+        height = "22pt";
         radius = 0;
         fixed-center = true;
+        separator = " | ";
+        padding-right = 2;
 
         # Colors
         background = "${colors.base00}";
@@ -49,56 +50,54 @@ in {
 
         # Modules
         modules-left = "i3";
-        modules-center = "";
-        modules-right = "cpu memory volume date";
-
-        # Tray
-        tray-position = "right";
-        tray-padding = 2;
+        modules-center = "date";
+        modules-right = "tray cpu volume logout";
       };
 
-      # i3 workspace module
       "module/i3" = {
         type = "internal/i3";
         format = "<label-state> <label-mode>";
         index-sort = true;
-        wrapping-scroll = false;
-        pin-workspaces = true;
-        strip-wsnumbers = true;
+        enable-click = false;
+        enable-scroll = false;
 
-        label-mode-padding = 2;
+        label-mode = "%mode%";
+        label-mode-padding = 1;
         label-mode-background = "${colors.base08}";
 
-        label-focused = "%icon%";
+        label-focused = "%index%";
         label-focused-background = "${colors.base0D}";
         label-focused-foreground = "${colors.base00}";
-        label-focused-padding = 2;
+        label-focused-padding = 1;
 
-        label-unfocused = "%icon%";
-        label-unfocused-padding = 2;
+        label-unfocused = "%index%";
+        label-unfocused-padding = 1;
 
-        label-visible = "%icon%";
+        label-visible = "%index%";
         label-visible-background = "${colors.base0B}";
         label-visible-foreground = "${colors.base00}";
-        label-visible-padding = 2;
+        label-visible-padding = 1;
 
-        label-urgent = "%icon%";
+        label-urgent = "%index%";
         label-urgent-background = "${colors.base08}";
         label-urgent-foreground = "${colors.base00}";
-        label-urgent-padding = 2;
+        label-urgent-padding = 1;
       };
 
-      # CPU module
+      "module/tray" = {
+        type = "internal/tray";
+        format-margin = 8;
+        tray-spacing = 8;
+      };
+
       "module/cpu" = {
         type = "internal/cpu";
         interval = 2;
-        format-prefix = " ";
         format-prefix-foreground = "${colors.base0D}";
         format-underline = "${colors.base0D}";
         label = "%percentage:2%%";
       };
 
-      # Memory module
       "module/memory" = {
         type = "internal/memory";
         interval = 2;
@@ -108,34 +107,40 @@ in {
         label = "%percentage_used:2%%";
       };
 
-      # Volume module
       "module/volume" = {
         type = "internal/pulseaudio";
         use-ui-max = false;
         format-volume = "<ramp-volume> <label-volume>";
-        label-muted = "󰖁 muted";
+        label-muted = "󰖁  <label-volume>";
         label-muted-foreground = "${colors.base03}";
 
         ramp-volume-0 = "󰕿";
         ramp-volume-1 = "󰖀";
         ramp-volume-2 = "󰕾";
-
-        click-right = "pavucontrol";
       };
 
-      # Date module
       "module/date" = {
         type = "internal/date";
         interval = 1;
         date = "%Y-%m-%d";
         time = "%H:%M";
-        format-prefix = "󰃭 ";
         format-prefix-foreground = "${colors.base0D}";
         format-underline = "${colors.base0D}";
-        label = "%time% %date%";
+        label = "%time% | %date%";
+      };
+
+      "module/logout" = {
+        type = "custom/text";
+        format = "";
+        click-left = "i3-msg exit";
+      };
+
+      "module/poweroff" = {
+        type = "custom/text";
+        format = "";
+        content-foreground = "${colors.base0D}";
+        click-left = "poweroff";
       };
     };
   };
-
-  home.packages = with pkgs; [pavucontrol];
 }

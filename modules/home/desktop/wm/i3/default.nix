@@ -22,7 +22,7 @@ in {
         terminal = "wezterm";
         menu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
 
-        bars = [ ];
+        bars = [];
 
         window = {
           border = 1;
@@ -69,11 +69,11 @@ in {
         };
 
         startup = [
-          # {
-          #   command = "exec i3-msg workspace 1";
-          #   always = true;
-          #   notification = false;
-          # }
+          {
+            command = "exec i3-msg workspace 1";
+            always = true;
+            notification = false;
+          }
           {
             command = "systemctl --user restart polybar.service";
             always = true;
