@@ -7,7 +7,7 @@ in {
 
   desktop = {
     enable = true;
-    windowManager = "awesome";
+    windowManager = "i3";
     starship.enable = true;
 
     appBundles = {

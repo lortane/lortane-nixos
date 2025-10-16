@@ -12,7 +12,7 @@ in {
 
   config = lib.mkIf (cfg.enable && cfg.windowManager == "i3") {
     programs.rofi.enable = true;
-    
+
     xsession.windowManager.i3 = {
       enable = true;
 
@@ -21,16 +21,18 @@ in {
 
         terminal = "wezterm";
         menu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
-        bars = [];
+        bars = [
+          {
+            position = "top";
+            statusCommand = "${pkgs.i3status}/bin/i3status";
+          }
+        ];
 
-        window.border = 0;
-
-        gaps = {
-          inner = 15;
-          outer = 5;
+        window = {
+          border = 1;
+          titlebar = false;
         };
 
-        # Default workspace output
         workspaceOutputAssign = [
           {
             output = "primary";
@@ -43,6 +45,19 @@ in {
         keybindings = lib.mkOptionDefault {
           "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
           "${modifier}+q" = "kill";
+          "${modifier}+g" = "splith";
+
+          # Vim-like focus
+          "${modifier}+h" = "focus left";
+          "${modifier}+j" = "focus down";
+          "${modifier}+k" = "focus up";
+          "${modifier}+l" = "focus right";
+
+          # Vim-like window movement
+          "${modifier}+Shift+h" = "move left";
+          "${modifier}+Shift+j" = "move down";
+          "${modifier}+Shift+k" = "move up";
+          "${modifier}+Shift+l" = "move right";
 
           # Workspaces
           "${modifier}+1" = "workspace number 1";
