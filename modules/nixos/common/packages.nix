@@ -21,6 +21,7 @@
     traceroute # Network route tracing
     dig # DNS lookup utility
     netcat-openbsd # Network swiss army knife
+    wireguard-tools # Wireguard tools
 
     # Basic file operations (system level)
     rsync # File synchronization tool
