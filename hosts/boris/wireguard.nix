@@ -22,7 +22,7 @@
         allowedIP = "10.0.0.3";
       };
       "lortane@meg" = {
-        publicKey = "############################################";
+        publicKey = "ASKPLQydbE4nheB/ykQxDeBEE7J+BsZT6DLqyvyiimk=";
         allowedIP = "10.0.0.4";
       };
     };
