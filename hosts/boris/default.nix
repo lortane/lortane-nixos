@@ -1,24 +1,31 @@
 {
-  inputs,
+  lib,
+  pkgs,
   config,
+  inputs,
   homeModules,
   nixosModules,
-  pkgs,
+  isImage ? false,
   ...
 }: {
-  imports = [
-    ./ddns.nix
-    ./hardware.nix
-    ./networking.nix
-    ./secrets
-    ./wireguard.nix
+  imports =
+    [
+      ./ddns.nix
+      ./networking.nix
+      ./secrets
+      ./wireguard.nix
 
-    nixosModules.common
+      nixosModules.bootloader
+      nixosModules.common
 
-    (import ../../users/lortane {
-      inherit nixosModules;
-    })
-  ];
+      (import ../../users/lortane {
+        inherit inputs nixosModules pkgs;
+      })
+    ]
+    ++ lib.optionals (!isImage) [./hardware.nix];
+
+  bootloader.systemd.enable = true;
+  powerManagement.cpuFreqGovernor = "performance";
 
   # So I can deploy remotely (review if can be done better)
   security.sudo.wheelNeedsPassword = false;
