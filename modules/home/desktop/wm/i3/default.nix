@@ -21,12 +21,8 @@ in {
 
         terminal = "wezterm";
         menu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
-        bars = [
-          {
-            position = "top";
-            statusCommand = "${pkgs.i3status}/bin/i3status";
-          }
-        ];
+
+        bars = [ ];
 
         window = {
           border = 1;

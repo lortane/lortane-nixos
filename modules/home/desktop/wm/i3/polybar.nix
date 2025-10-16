@@ -1,111 +1,141 @@
 {
+  config,
   lib,
   pkgs,
-  config,
   ...
 }: let
-  cfg = config.desktop;
+  colors = config.lib.stylix.colors.withHashtag;
+  fonts = config.stylix.fonts;
 in {
-  config = lib.mkIf (cfg.enable && cfg.windowManager == "i3") {
-    services.polybar = {
-      enable = true;
-      package = pkgs.polybar.override {
-        pulseSupport = true;
-        nlSupport = true;
+  services.polybar = {
+    enable = true;
+    package = pkgs.polybar.override {
+      i3Support = true;
+      pulseSupport = true;
+      nlSupport = true;
+    };
+
+    script = ''
+      # Source X11 environment variables
+      if [ -f "$HOME/.Xauthority" ]; then
+        export XAUTHORITY="$HOME/.Xauthority"
+      fi
+      export DISPLAY=:0
+      polybar main &
+    '';
+
+    settings = {
+      # Global settings
+      "settings" = {
+        screenchange-reload = true;
+        compositing = "background";
+        pseudo-transparency = false;
       };
 
-      config = {
-        "global/wm" = {
-          margin-top = 0;
-          margin-bottom = 0;
-        };
+      "bar/main" = {
+        # Position
+        width = "100%";
+        height = "23pt";
+        radius = 0;
+        fixed-center = true;
 
-        "bar/main" = {
-          width = "100%";
-          height = 24;
-          offset-x = 0;
-          offset-y = 0;
-          background = "#2E3440";
-          foreground = "#D8DEE9";
-          line-size = 2;
-          padding-right = 2;
-          module-margin = 1;
-          # font-0 = "DejaVu Sans Mono:size=10;1";
-          # font-1 = "FontAwesome:size=10;1";
-          # modules-left = "i3";
-          modules-center = "";
-          modules-right = "cpu memory date";
-        };
+        # Colors
+        background = "${colors.base00}";
+        foreground = "${colors.base07}";
 
-        # "module/i3" = {
-        #   type = "internal/i3";
-        #   format = "<label-state> <label-mode>";
-        #   index-sort = true;
-        #   wrapping-scroll = false;
+        # Use Stylix monospace font
+        font-0 = "${fonts.monospace.name}:size=${toString fonts.sizes.terminal};3";
+        font-1 = "${fonts.monospace.name}:size=${toString (fonts.sizes.terminal + 2)};3";
 
-        #   label-mode-padding = 2;
-        #   label-mode-foreground = "#000";
-        #   label-mode-background = "#FFB52A";
+        # Modules
+        modules-left = "i3";
+        modules-center = "";
+        modules-right = "cpu memory volume date";
 
-        #   label-focused = "%index%";
-        #   label-focused-background = "#81A1C1";
-        #   label-focused-foreground = "#2E3440";
-        #   label-focused-padding = 2;
-
-        #   label-unfocused = "%index%";
-        #   label-unfocused-padding = 2;
-        #   label-unfocused-foreground = "#D8DEE9";
-
-        #   label-visible = "%index%";
-        #   label-visible-background = "\${self.label-focused-background}";
-        #   label-visible-foreground = "\${self.label-focused-foreground}";
-        #   label-visible-padding = "\${self.label-focused-padding}";
-
-        #   label-urgent = "%index%";
-        #   label-urgent-background = "#BF616A";
-        #   label-urgent-foreground = "#2E3440";
-        #   label-urgent-padding = 2;
-        # };
-
-        "module/cpu" = {
-          type = "internal/cpu";
-          interval = 2;
-          format-prefix = "CPU ";
-          format-prefix-foreground = "#81A1C1";
-          format = "<label>";
-          label = "%percentage:2%%";
-        };
-
-        "module/memory" = {
-          type = "internal/memory";
-          interval = 2;
-          format-prefix = "RAM ";
-          format-prefix-foreground = "#81A1C1";
-          format = "<label>";
-          label = "%percentage_used:2%%";
-        };
-
-        "module/date" = {
-          type = "internal/date";
-          interval = 1;
-          date = "%a %b %d";
-          time = "%H:%M";
-          format = "<label>";
-          label = "%date% %time%";
-        };
+        # Tray
+        tray-position = "right";
+        tray-padding = 2;
       };
 
-      # Polybar script
-      script = ''
-        # Terminate already running bar instances
-        killall -q polybar
+      # i3 workspace module
+      "module/i3" = {
+        type = "internal/i3";
+        format = "<label-state> <label-mode>";
+        index-sort = true;
+        wrapping-scroll = false;
+        pin-workspaces = true;
+        strip-wsnumbers = true;
 
-        # Wait until the processes have been shut down
-        while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+        label-mode-padding = 2;
+        label-mode-background = "${colors.base08}";
 
-        # Launch Polybar
-        polybar main &
-      '';
+        label-focused = "%icon%";
+        label-focused-background = "${colors.base0D}";
+        label-focused-foreground = "${colors.base00}";
+        label-focused-padding = 2;
+
+        label-unfocused = "%icon%";
+        label-unfocused-padding = 2;
+
+        label-visible = "%icon%";
+        label-visible-background = "${colors.base0B}";
+        label-visible-foreground = "${colors.base00}";
+        label-visible-padding = 2;
+
+        label-urgent = "%icon%";
+        label-urgent-background = "${colors.base08}";
+        label-urgent-foreground = "${colors.base00}";
+        label-urgent-padding = 2;
+      };
+
+      # CPU module
+      "module/cpu" = {
+        type = "internal/cpu";
+        interval = 2;
+        format-prefix = " ";
+        format-prefix-foreground = "${colors.base0D}";
+        format-underline = "${colors.base0D}";
+        label = "%percentage:2%%";
+      };
+
+      # Memory module
+      "module/memory" = {
+        type = "internal/memory";
+        interval = 2;
+        format-prefix = " ";
+        format-prefix-foreground = "${colors.base0B}";
+        format-underline = "${colors.base0B}";
+        label = "%percentage_used:2%%";
+      };
+
+      # Volume module
+      "module/volume" = {
+        type = "internal/pulseaudio";
+        use-ui-max = false;
+        format-volume = "<ramp-volume> <label-volume>";
+        label-muted = "󰖁 muted";
+        label-muted-foreground = "${colors.base03}";
+
+        ramp-volume-0 = "󰕿";
+        ramp-volume-1 = "󰖀";
+        ramp-volume-2 = "󰕾";
+
+        click-right = "pavucontrol";
+      };
+
+      # Date module
+      "module/date" = {
+        type = "internal/date";
+        interval = 1;
+        date = "%Y-%m-%d";
+        time = "%H:%M";
+        format-prefix = "󰃭 ";
+        format-prefix-foreground = "${colors.base0D}";
+        format-underline = "${colors.base0D}";
+        label = "%time% %date%";
+      };
     };
   };
+
+  home.packages = with pkgs; [pavucontrol];
 }

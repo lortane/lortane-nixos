@@ -8,7 +8,7 @@
   cfg = config.desktop.starship;
 
   # Access Stylix colors - guaranteed to exist since Stylix is mandatory
-  s = config.lib.stylix.colors.withHashtag;
+  colors = config.lib.stylix.colors.withHashtag;
 
   defaultSettings = {
     add_newline = false;
@@ -16,21 +16,21 @@
     format = "$directory$fill$all$character";
 
     directory = {
-      format = "[ ](bold ${s.base0B})[ $path ]($style)";
-      style = "bold ${s.base0B}";
+      format = "[ ](bold ${colors.base0B})[ $path ]($style)";
+      style = "bold ${colors.base0B}";
       truncation_length = 0;
       truncate_to_repo = false;
     };
 
     character = {
-      success_symbol = "[➜](bold ${s.base0B})";
-      error_symbol = "[➜](bold ${s.base08})";
+      success_symbol = "[➜](bold ${colors.base0B})";
+      error_symbol = "[➜](bold ${colors.base08})";
     };
 
     cmd_duration = {
       format = "[󰔛 $duration]($style)";
       disabled = false;
-      style = "bg:none fg:${s.base0A}";
+      style = "bg:none fg:${colors.base0A}";
       show_notifications = false;
       min_time_to_notify = 60000;
     };

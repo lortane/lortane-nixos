@@ -25,7 +25,7 @@
 
       (import ../../users/lortane/home-manager.nix {
         inherit inputs homeModules;
-        # hostHomeModules = [../../users/lortane/home/hosts/wes];
+        hostHomeModules = [../../users/lortane/home/hosts/wes];
       })
     ]
     ++ lib.optionals (!isImage) [./hardware.nix];
@@ -37,7 +37,7 @@
 
   desktop = {
     enable = true;
-    windowManager = "awesome";
+    windowManager = "i3";
   };
 
   hardware.intel-gpu.enable = true;
