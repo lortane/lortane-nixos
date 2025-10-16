@@ -29,7 +29,7 @@ in {
           runAsRoot = mkDefault false;
           swtpm.enable = mkDefault true;
           ovmf.enable = mkDefault true;
-          ovmf.packages = [ pkgs.OVMFFull.fd ];
+          ovmf.packages = [pkgs.OVMFFull.fd];
         };
       };
       spiceUSBRedirection.enable = mkDefault true;
@@ -44,6 +44,6 @@ in {
       dnsmasq
     ];
 
-    systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
+    systemd.tmpfiles.rules = ["L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"];
   };
 }
