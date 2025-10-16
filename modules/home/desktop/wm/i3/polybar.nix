@@ -41,8 +41,12 @@ in {
         padding-right = 2;
 
         # Colors
-        background = "${colors.base00}";
+        background = "${colors.base01}";
         foreground = "${colors.base07}";
+
+        # Border
+        border-bottom-size = 1;
+        border-bottom-color = "${colors.base03}";
 
         # Use Stylix monospace font
         font-0 = "${fonts.monospace.name}:size=${toString fonts.sizes.terminal};3";

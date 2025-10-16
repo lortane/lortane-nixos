@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.desktop;
+  colors = config.lib.stylix.colors.withHashtag;
 in {
   imports = [
     ./polybar.nix
@@ -79,11 +80,11 @@ in {
             always = true;
             notification = false;
           }
-          # {
-          #   command = "${pkgs.feh}/bin/feh --bg-scale ~/background.png";
-          #   always = true;
-          #   notification = false;
-          # }
+          {
+            command = "${pkgs.xorg.xsetroot}/bin/xsetroot -solid '${colors.base00}'";
+            always = true;
+            notification = false;
+          }
         ];
       };
     };
