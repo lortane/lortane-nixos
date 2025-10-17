@@ -6,6 +6,43 @@
 }: let
   cfg = config.desktop;
   colors = config.lib.stylix.colors.withHashtag;
+
+  lockScript = pkgs.writeShellScriptBin "enhanced-lock" ''
+    ${pkgs.i3lock-color}/bin/i3lock \
+      --color="${colors.base00}" \
+      --inside-color="${colors.base01}90" \
+      --ring-color="${colors.base0D}" \
+      --keyhl-color="${colors.base0B}" \
+      --bshl-color="${colors.base08}" \
+      --separator-color="${colors.base02}" \
+      --insidever-color="${colors.base00}" \
+      --ringver-color="${colors.base0B}" \
+      --verif-color="${colors.base0B}" \
+      --insidewrong-color="${colors.base00}" \
+      --ringwrong-color="${colors.base08}" \
+      --wrong-color="${colors.base08}" \
+      --time-str="%H:%M" \
+      --date-str="%Y-%m-%d" \
+      --time-color="${colors.base07}" \
+      --date-color="${colors.base07}" \
+      --layout-color="${colors.base07}" \
+      --clock \
+      --time-size=24 \
+      --date-size=14 \
+      --time-font="${config.stylix.fonts.monospace.name}" \
+      --date-font="${config.stylix.fonts.monospace.name}" \
+      --verif-text="Verifying..." \
+      --wrong-text="Access Denied" \
+      --noinput="Enter Password" \
+      --lock-text="Locking..." \
+      --lockfailed="Lock Failed" \
+      --show-failed-attempts \
+      --ignore-empty-password \
+      --radius=120 \
+      --ring-width=8.0 \
+      --indicator \
+      --nofork
+  '';
 in {
   imports = [
     ./polybar.nix
@@ -13,6 +50,10 @@ in {
 
   config = lib.mkIf (cfg.enable && cfg.windowManager == "i3") {
     programs.rofi.enable = true;
+    home.packages = with pkgs; [
+      i3lock-color
+      lockScript
+    ];
 
     xsession.windowManager.i3 = {
       enable = true;
@@ -67,6 +108,9 @@ in {
           "${modifier}+Shift+2" = "move container to workspace number 2";
           "${modifier}+Shift+3" = "move container to workspace number 3";
           "${modifier}+Shift+4" = "move container to workspace number 4";
+
+          # i3lock
+          "${modifier}+Escape" = "exec enhanced-lock";
         };
 
         startup = [
