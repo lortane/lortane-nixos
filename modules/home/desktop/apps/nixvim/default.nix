@@ -32,7 +32,7 @@ in {
     imports = [
       ./keymaps.nix
       ./options.nix
-      #./plugins/lsp.nix
+      ./plugins/lsp.nix
       ./plugins/ui.nix
       #./plugins/cmp.nix
       #./plugins/lspsaga.nix

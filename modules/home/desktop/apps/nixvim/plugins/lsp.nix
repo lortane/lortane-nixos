@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   plugins.conform-nvim = {
     enable = true;
     settings = {
@@ -13,13 +9,9 @@
       notify_on_error = true;
 
       formatters_by_ft = {
-        sh = [
-          "shellcheck"
-          "shfmt"
-        ];
-        json = ["prettier"];
-        lua = ["stylua"];
-        markdown = ["prettier"];
+        cpp = ["clang-format"];
+        c = ["clang-format"];
+        #lua = ["stylua"];
         nix = ["alejandra"];
       };
     };
@@ -85,35 +77,9 @@
       })
     '';
     servers = {
-      pylsp = {
-        # NOTE: Trouebleshooting this!
-        enable = false;
-        settings.plugins = {
-          black.enabled = true;
-          flake8.enabled = true;
-          isort.enabled = true;
-          jedi.enabled = true;
-          pycodestyle.enabled = true;
-          pydocstyle.enabled = true;
-          pyflakes.enabled = true;
-          mccabe.enabled = true;
-          rope.enabled = true;
-          yapf.enabled = true;
-        };
-      };
-      lua_ls.enable = true; # Lua
-      cssls.enable = true; # CSS
-      html.enable = true; # HTML
-      pyright.enable = true; # Python
-      marksman.enable = true; # Markdown
+      lua_ls.enable = false; # Lua
       nil_ls.enable = true; # Nix
-      dockerls.enable = true; # Docker
-      docker_compose_language_service.enable = true; # Docker compose
-      bashls.enable = true; # Bash
-      yamlls.enable = true; # YAML
-      terraformls.enable = true; # Terraform
-      # ansiblels.enable = true; #Ansible - using yamlls instead
-      nginx_language_server.enable = true; # Nginx
+      clangd.enable = true; # C/C++
     };
   };
 
@@ -260,105 +226,18 @@
   plugins.none-ls = {
     enable = true;
     sources.formatting = {
-      black.enable = true;
       alejandra.enable = true;
-      hclfmt.enable = true;
-      opentofu_fmt.enable = true;
-      prettier.enable = true;
-      sqlformat.enable = true;
       stylua.enable = true;
-      yamlfmt.enable = true;
-    };
-    sources.diagnostics = {
-      trivy.enable = true;
-      yamllint.enable = true;
     };
   };
 
   plugins.lint = {
     enable = true;
     lintersByFt = {
-      text = ["vale"];
-      json = ["jsonlint"];
-      markdown = ["prettier"];
-      #ruby = ["rubyfmt"];
-      dockerfile = ["hadolint"];
-      terraform = ["tofu_fmt"];
-      tf = ["tofu_fmt"];
-      bash = ["shellcheck"];
-      yaml = ["yamlfmt"];
+      #lua = ["selene"];
       nix = ["alejandra"];
-      go = ["golangci-lint"];
-      python = ["flake8"];
-      haskell = ["hlint"];
-      lua = ["selene"];
-    };
-    linters = {
-      hadolint = {
-        cmd = "${pkgs.hadolint}/bin/hadolint";
-      };
+      cpp = ["clang-format"];
+      c = ["clang-format"];
     };
   };
-  plugins.copilot-chat = {
-    enable = false;
-  };
-
-  plugins.copilot-cmp = {
-    enable = false;
-  };
-  plugins.copilot-lua = {
-    enable = false;
-    settings = {
-      suggestion = {
-        enabled = false;
-      };
-      panel = {
-        enabled = false;
-      };
-    };
-  };
-  # extraConfigLua = ''
-  #   require("copilot").setup({
-  #     suggestion = { enabled = false },
-  #     panel = { enabled = false },
-  #   })
-  # '';
-  keymaps = [
-    {
-      key = "<leader>ct";
-      action = "<CMD>CopilotChatToggle<CR>";
-      options.desc = "Toggle Copilot Chat Window";
-    }
-    {
-      key = "<leader>cs";
-      action = "<CMD>CopilotChatStop<CR>";
-      options.desc = "Stop current Copilot output";
-    }
-    {
-      key = "<leader>cr";
-      action = "<CMD>CopilotChatReview<CR>";
-      options.desc = "Review the selected code";
-    }
-    {
-      key = "<leader>ce";
-      action = "<CMD>CopilotChatExplain<CR>";
-      options.desc = "Give an explanation for the selected code";
-    }
-    {
-      key = "<leader>cd";
-      action = "<CMD>CopilotChatDocs<CR>";
-      options.desc = "Add documentation for the selection";
-    }
-    {
-      key = "<leader>cp";
-      action = "<CMD>CopilotChatTests<CR>";
-      options.desc = "Add tests for my code";
-    }
-  ];
-
-  plugins.markdown-preview = {
-    enable = true;
-    settings.theme = "dark";
-  };
-  plugins.render-markdown.enable = true;
 }
